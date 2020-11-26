@@ -37,18 +37,6 @@ material_black = {
     }
 material_black["material"]["front"] = material_black["material"]["back"]
 
-
-air_medium = {
-    "medium":{
-        "refractive_index":1,
-        "extinction":0        
-        }
-    }
-
-glass_medium = {
-    "medium": air_medium["medium"]
-    }
-
 geometry_facet = {
     "geometry":[{
     "material": material_specular["material"],
@@ -57,9 +45,9 @@ geometry_facet = {
                   {"operation": "AND",
                   "vertices": [
                       [-0.07, -0.07],
-                      [-0.07, -0.07],
-                      [-0.07, -0.07],
-                      [-0.07, -0.07]]
+                      [-0.07, 0.07],
+                      [0.07, 0.07],
+                      [0.07, -0.07]]
                    }]
                   }
         }
@@ -105,7 +93,7 @@ template_so_facet = {
     "transform": { "rotation": [0, 0, 90] ,"translation": [0, 0, 0]},
     "zx_pivot":{
       "ref_point": [0, 0, 0],
-      "target": { "anchor": entity_absorber["entity"]["anchors"][0] },
+      "target": { "anchor": entity_absorber["entity"]["name"]+"."+entity_absorber["entity"]["anchors"][0]["name"] },
         },
     "children": [
     {
@@ -121,19 +109,17 @@ template_so_facet = {
 entity_reflector = {
 "entity":{
     "name": "reflector1",
-    "transform": { "rotation": [0 ,0, 0], "translation": [ -0.710, 0, -0.426 ] },
+    "transform": { "rotation": [0 ,0, 0], "translation": [ -0.750, 0, -0.450 ] },
     "children": [template_so_facet["template"]]
     }
     
-    }
+}
 
 
  
 data = [
         sun,
         material_specular,
-        air_medium,
-        glass_medium,
         material_black,
         geometry_facet,
         geometry_receiver,
