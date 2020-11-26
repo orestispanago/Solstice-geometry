@@ -1,4 +1,6 @@
 import yaml
+from mirror_coordinates import centered_x, centered_y
+import copy
 
 class MyDumper(yaml.SafeDumper):
     # HACK: insert blank lines between top-level objects
@@ -14,6 +16,8 @@ sun = { "sun": {
             "dni": 1000
             }
     }
+
+
 material_specular = {
     "material": {
         "back": {
@@ -125,11 +129,27 @@ data = [
         geometry_receiver,
         entity_absorber,
         template_so_facet,
-        entity_reflector
 ]
+
+def create_reflector(entity_reflector ,x ,y):
+    entity_reflector1 = copy.deepcopy(entity_reflector)
+    entity_reflector1["entity"]["name"] =  f"reflector{count}"
+    entity_reflector1["entity"]["transform"]["translation"] =[f"{x:.3f}", 0,f"{y:.3f}"] 
+    entity_reflector1["entity"]["children"] = [template_so_facet["template"]]
+    return entity_reflector1
+count=1
+for x in centered_x:
+    for y in centered_y:
+        entity_reflector1 = copy.deepcopy(entity_reflector)
+        entity_reflector1["entity"]["name"] =  f"reflector{count}"
+        entity_reflector1["entity"]["transform"]["translation"] =[f"{x:.3f}", 0,f"{y:.3f}"] 
+        entity_reflector1["entity"]["children"] = [template_so_facet["template"]]
+        data.append(entity_reflector1)    
+        count+=1
 
 with open('geometry/data.yaml', 'w') as outfile:
     yaml.dump(data, outfile, Dumper=MyDumper,default_flow_style=None,sort_keys=False)
+
 
 from traces import Transversal
 
