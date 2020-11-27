@@ -12,41 +12,31 @@ class MyDumper(yaml.SafeDumper):
             super().write_line_break()
 
 
-sun = { "sun": {
-            "dni": 1000
-            }
-    }
-
+sun = { "sun": { "dni": 1000 } }
+surface_mirror = {"mirror": { "reflectivity": 1, "slope_error": 0 }}
+surface_matte = {"matte":{ "reflectivity" : 0 }}
 
 material_specular = {
     "material": {
-        "back": {
-            "mirror": { 
-                "reflectivity": 1, 
-                "slope_error": 0 
-                }
-            }
-        }
+        "back": surface_mirror,
+        "front":surface_mirror
     }
-material_specular["material"]["front"] = material_specular["material"]["back"]
+}
 
 material_black = {
     "material": {
-        "back": {
-            "matte": { 
-                "reflectivity": 0
-                }
-            }
-        }
+        "back": surface_matte,
+        "front": surface_matte
     }
+}
 material_black["material"]["front"] = material_black["material"]["back"]
+
 
 geometry_facet = {
     "geometry":[{
     "material": material_specular["material"],
     "plane": {"clip":
-              [
-                  {"operation": "AND",
+              [{"operation": "AND",
                   "vertices": [
                       [-0.07, -0.07],
                       [-0.07, 0.07],
@@ -131,19 +121,20 @@ data = [
         template_so_facet,
 ]
 
-def create_reflector(entity_reflector ,x ,y):
+def create_reflector(entity_reflector ,x ,z):
+    x = round(float(x),3)
+    z = round(float(z),3)
     entity_reflector1 = copy.deepcopy(entity_reflector)
     entity_reflector1["entity"]["name"] =  f"reflector{count}"
-    entity_reflector1["entity"]["transform"]["translation"] =[f"{x:.3f}", 0,f"{y:.3f}"] 
+    entity_reflector1["entity"]["transform"]["translation"] =[x, 0, z] 
     entity_reflector1["entity"]["children"] = [template_so_facet["template"]]
     return entity_reflector1
+
 count=1
 for x in centered_x:
     for y in centered_y:
         entity_reflector1 = copy.deepcopy(entity_reflector)
-        entity_reflector1["entity"]["name"] =  f"reflector{count}"
-        entity_reflector1["entity"]["transform"]["translation"] =[f"{x:.3f}", 0,f"{y:.3f}"] 
-        entity_reflector1["entity"]["children"] = [template_so_facet["template"]]
+        entity_reflector1 = create_reflector(entity_reflector1, x, y)
         data.append(entity_reflector1)    
         count+=1
 
