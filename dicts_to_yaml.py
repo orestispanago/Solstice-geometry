@@ -66,6 +66,7 @@ geometry_receiver = {
           }
         }]           
 }
+
 entity_absorber = {
 "entity":{
     "name": "absorber",
@@ -79,7 +80,7 @@ entity_absorber = {
         ],
     "geometry": geometry_receiver["geometry"]
     }
-    }
+}
 
 template_so_facet = {
 "template": {
@@ -87,7 +88,8 @@ template_so_facet = {
     "transform": { "rotation": [0, 0, 90] ,"translation": [0, 0, 0]},
     "zx_pivot":{
       "ref_point": [0, 0, 0],
-      "target": { "anchor": entity_absorber["entity"]["name"]+"."+entity_absorber["entity"]["anchors"][0]["name"] },
+      "target": { "anchor": entity_absorber["entity"]["name"]+\
+                 "."+entity_absorber["entity"]["anchors"][0]["name"] },
         },
     "children": [
     {
@@ -111,7 +113,7 @@ entity_reflector = {
 
 
  
-data = [
+yaml_items = [
         sun,
         material_specular,
         material_black,
@@ -121,7 +123,7 @@ data = [
         template_so_facet,
 ]
 
-def create_reflector(entity_reflector ,x ,z):
+def create_reflector(entity_reflector,count ,x ,z):
     x = round(float(x),3)
     z = round(float(z),3)
     entity_reflector1 = copy.deepcopy(entity_reflector)
@@ -130,16 +132,18 @@ def create_reflector(entity_reflector ,x ,z):
     entity_reflector1["entity"]["children"] = [template_so_facet["template"]]
     return entity_reflector1
 
-count=1
-for x in centered_x:
-    for y in centered_y:
-        entity_reflector1 = copy.deepcopy(entity_reflector)
-        entity_reflector1 = create_reflector(entity_reflector1, x, y)
-        data.append(entity_reflector1)    
-        count+=1
+def append_reflectors():
+    count=1
+    for x in centered_x:
+        for y in centered_y:
+            entity_reflector1 = create_reflector(entity_reflector,count, x, y)
+            yaml_items.append(entity_reflector1)    
+            count+=1
+append_reflectors()
 
 with open('geometry/data.yaml', 'w') as outfile:
-    yaml.dump(data, outfile, Dumper=MyDumper,default_flow_style=None,sort_keys=False)
+    yaml.dump(yaml_items, outfile, Dumper=MyDumper,default_flow_style=None,
+              sort_keys=False)
 
 
 from traces import Transversal
