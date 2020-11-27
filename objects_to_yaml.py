@@ -24,11 +24,11 @@ class Property:
         
 class Mirror:
     def __init__(self,reflectivity,slope_error):
-        self.mirror=Property(reflectivity,slope_error)
+        self.mirror={"reflectivity": reflectivity, "slope_error": slope_error}
 
 class Matte:
-    def __init__(self,reflectivity,slope_error):
-       self.matte=Property(reflectivity,slope_error)   
+    def __init__(self,reflectivity):
+       self.matte= {"reflectivity": reflectivity}
 
 class Material:
     def __init__(self, front, back):
@@ -72,7 +72,13 @@ class Absorber:
         self.transform=transform
         self.anchors=[Anchor()]
         self.geometry=geometry
-        
+
+class Reflector:
+    def __init__(self,name, transform, children):
+        self.name=name
+        self.transform=transform
+        self.children=children
+
 class Children:
     def __init__(self, name, transform, geometry):
         self.name=name
@@ -98,27 +104,30 @@ class Template:
         
 
 material_specular = Material(Mirror(1,0), Mirror(0.9,0))
-material_black = Material(Matte(0,0), Matte(0.1,0))
-geometry_facet = Geometry(material_specular,Plane(0.7, 0.2))
+material_black = Material(Matte(0), Matte(0.1))
+geometry_facet = Geometry([material_specular],Plane(0.7, 0.2))
 geometry_absorber = Geometry(material_black, Plane(0.25, 0.23))
+transform_absorber = Transform([90, 0, 0], [0, 1.5, 0])
 entity_absorber = Absorber("absorber", 
-                           Transform([90, 0, 0], [0, 1.5, 0]), 
+                           transform_absorber, 
                            geometry_absorber)
 
-entity_absorber1 = Absorber("absorber", 
-                           Transform([90, 0, 0], [0, 1.5, 0]), 
-                           geometry_absorber)
-
+transform_children = Transform([90, 0, 0], [0, 0, 0])
 children = Children("facet", 
-                    Transform([90, 0, 0], [0, 0, 0]), 
+                    transform_children, 
                     geometry_facet)
 target = Target(entity_absorber, Anchor())
 zx_pivot = ZxPivot([0, 0, 0], target)
 
+transform_facet = Transform([0, 0, 90], [0,0,0])
 template_sofacet = Template("so_facet", 
-                            Transform([0, 0, 90], [0,0,0]),
+                            transform_facet,
                             zx_pivot,
                             children)
+
+transform_reflector = Transform([0,0,0],[-0.710, 0, -0.426])
+
+entity_reflector = Reflector("reflector1", transform_reflector, children)
 
 sun = to_dict(Sun(1000))
 material_specular = to_dict(material_specular)
@@ -128,7 +137,7 @@ geometry_absorber = to_dict(geometry_absorber)
 entity_absorber = to_dict(entity_absorber)
 children = to_dict(children)
 template_sofacet = to_dict(template_sofacet)
-
+entity_reflector = to_dict(entity_reflector)
 data = [
     {"sun":sun}, 
     {"material": material_specular}, 
@@ -137,8 +146,13 @@ data = [
     {"geometry": geometry_absorber},
     {"entity": entity_absorber},
     {"template": template_sofacet},
+    {"entity": entity_reflector}
 ]
 with open('geometry/data.yaml', 'w') as outfile:
     yaml.dump(data, outfile, Dumper=MyDumper,default_flow_style=None,sort_keys=False)
     
+from traces import Transversal
 
+transversal = Transversal(45, 135, 1, 10000, "data.yaml")
+
+transversal.export_obj()
