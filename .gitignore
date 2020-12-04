@@ -7,3 +7,5 @@ __pycache__/
 /myscreenshot.png
 
 .idea/
+
+*.png
