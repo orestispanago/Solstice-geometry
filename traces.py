@@ -4,6 +4,8 @@ import subprocess
 import utils
 from io import StringIO
 import pandas as pd
+from tqdm import tqdm
+
 
 CWD = os.getcwd()
 receiver = os.path.join(CWD, "geometry", "receiver.yaml")
@@ -19,7 +21,7 @@ class Trace():
         self.angles = np.arange(min_angle, max_angle + 1, step).tolist()
         self.name = name 
         self.title = self.name + " "+ geometry.split(".")[0]
-        self.geometry = os.path.join(CWD, "geometry", geometry)
+        self.geometry_path = os.path.join(CWD, "geometry", geometry)
         self.exp_dir = os.path.join(CWD, 'export', geometry.split(".")[0])
         self.shape_dir = os.path.join(self.exp_dir,"shapes")
         self.rawfile = os.path.join(self.exp_dir, 'raw', self.name + ".txt")
@@ -35,20 +37,19 @@ class Trace():
                 cmd = f'solstice -D {chunk} -n {self.rays} -v -R {receiver} {self.geometry}'.split()
                 subprocess.run(cmd, stdout=f)
 
-    def run_set_df(self):
-        """ Runs Trace and pipes output to dataframe, sets df as Trace attr """
-        # Solstice cannot take too long string of angle arguments, so split into chunks
+    def run_to_df(self):
+        """ Runs Direction and pipes output to dataframe """
         df_list = []
-        for i in range(0, len(self.angle_pairs), 50):
-            chunk = self.angle_pairs[i:i + 50]
+        # Solstice cannot take too long string of angle arguments, so split into chunks
+        for i in tqdm(range(0, len(self.angle_pairs), 20)):
+            chunk = self.angle_pairs[i:i + 20]
             chunk = ":".join(chunk)
-            cmd = f'solstice -D {chunk} -n {self.rays} -v -R {receiver} {self.geometry}'.split()
+            cmd = f'solstice -D {chunk} -n {self.rays} -v -R {receiver} {self.geometry_path}'.split()
             a = subprocess.Popen(cmd, stdout=subprocess.PIPE)
             b = StringIO(a.communicate()[0].decode('utf-8'))
-            df = pd.read_csv(b, sep='\s+',names=range(47))
+            df = read(b)
             df_list.append(df)
-        df_out = pd.concat(df_list)
-        self.df = df_out
+        return pd.concat(df_list)
 
     def export_vtk(self, nrays=100):
         for pair in [self.angle_pairs[0], self.angle_pairs[-1]]:
@@ -125,6 +126,26 @@ class Transversal(Trace):
 class Longitudinal(Trace):
     def __init__(self, min_angle, max_angle, step, rays, geometry):
         super().__init__(min_angle, max_angle, step, rays, geometry, name=self.__class__.__name__)
-        self.angle_pairs = [f"90,{a:.1f}" for a in self.angles]
+        self.angle_pairs = [f"180,{a:.1f}" for a in self.angles]
         self.sun_col = 4  # sun direction column in txt output file
         self.xlabel = "Zenith $(\degree)$, 0$\degree$=Normal Incidence"
+        
+
+def read(fname):
+    columns = {
+           "potential_flux": 2,
+           "absorbed_flux": 3,
+           "cos_factor": 4,
+           "shadow_losses": 5,
+           "missing_losses": 6,
+           # "reflectivity_losses": 7,
+           # "absorptivity_losses": 8
+    }
+    df = pd.read_csv(fname, sep='\s+', names=range(47))
+    df_out = df.loc[df[1] == 'Sun', [3]]  # azimuth
+    df_out.columns = ["azimuth"]
+    df_out["zenith"] = df.loc[df[1] == 'Sun', [4]] # zenith
+    df_out["efficiency"] = df.loc[df[0] == 'absorber', [23]].values  # Overall effficiency, add [23,24] for error
+    for key in columns.keys():
+        df_out[key] = df[0].iloc[df_out.index + columns.get(key)].astype('float').values
+    return df_out

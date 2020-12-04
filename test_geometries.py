@@ -4,8 +4,6 @@ import pyvista as pv
 import utils
 
 
-receiver = "geometry/receiver.yaml"
-geometry = "geometry/data.yaml"
 
         
 def export_obj_vtk(az, zen):
@@ -33,7 +31,9 @@ def plot_obj_vtk(obj_path, vtk_path):
     plotter.show_bounds()
     plotter.show(cpos="xy", screenshot="obj_vtk.png") 
    
+receiver = "geometry/receiver.yaml"
+geometry = "geometry/data.yaml"
 
-obj, vtk = export_obj_vtk(45,0)
-plot_obj_vtk(obj, vtk)
+# obj, vtk = export_obj_vtk(45,0)
+# plot_obj_vtk(obj, vtk)
 

@@ -36,8 +36,8 @@
     name: absorber
     primary: 0
     transform:
-      rotation: [90, 0, 0]
-      translation: [0, 1.5, 0]
+      rotation: [0, 90, 0]
+      translation: [-1.5, 0, 0]
     anchors:
     - name: anchor0
       position: [0, 0, 0]
@@ -46,7 +46,7 @@
 - template: &id006
     name: so_facet
     transform:
-      rotation: [0, 0, 90]
+      rotation: [0, 0, 0]
       translation: [0, 0, 0]
     zx_pivot:
       ref_point: [0, 0, 0]
@@ -63,7 +63,7 @@
     name: reflector1
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.71, 0, -0.426]
+      translation: [0, -0.71, -0.426]
     children:
     - *id006
 
@@ -71,7 +71,7 @@
     name: reflector2
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.71, 0, -0.284]
+      translation: [0, -0.71, -0.284]
     children:
     - *id006
 
@@ -79,7 +79,7 @@
     name: reflector3
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.71, 0, -0.142]
+      translation: [0, -0.71, -0.142]
     children:
     - *id006
 
@@ -87,7 +87,7 @@
     name: reflector4
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.71, 0, 0.0]
+      translation: [0, -0.71, 0.0]
     children:
     - *id006
 
@@ -95,7 +95,7 @@
     name: reflector5
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.71, 0, 0.142]
+      translation: [0, -0.71, 0.142]
     children:
     - *id006
 
@@ -103,7 +103,7 @@
     name: reflector6
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.71, 0, 0.284]
+      translation: [0, -0.71, 0.284]
     children:
     - *id006
 
@@ -111,7 +111,7 @@
     name: reflector7
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.71, 0, 0.426]
+      translation: [0, -0.71, 0.426]
     children:
     - *id006
 
@@ -119,7 +119,7 @@
     name: reflector8
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.568, 0, -0.426]
+      translation: [0, -0.568, -0.426]
     children:
     - *id006
 
@@ -127,7 +127,7 @@
     name: reflector9
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.568, 0, -0.284]
+      translation: [0, -0.568, -0.284]
     children:
     - *id006
 
@@ -135,7 +135,7 @@
     name: reflector10
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.568, 0, -0.142]
+      translation: [0, -0.568, -0.142]
     children:
     - *id006
 
@@ -143,7 +143,7 @@
     name: reflector11
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.568, 0, 0.0]
+      translation: [0, -0.568, 0.0]
     children:
     - *id006
 
@@ -151,7 +151,7 @@
     name: reflector12
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.568, 0, 0.142]
+      translation: [0, -0.568, 0.142]
     children:
     - *id006
 
@@ -159,7 +159,7 @@
     name: reflector13
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.568, 0, 0.284]
+      translation: [0, -0.568, 0.284]
     children:
     - *id006
 
@@ -167,7 +167,7 @@
     name: reflector14
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.568, 0, 0.426]
+      translation: [0, -0.568, 0.426]
     children:
     - *id006
 
@@ -175,7 +175,7 @@
     name: reflector15
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.426, 0, -0.426]
+      translation: [0, -0.426, -0.426]
     children:
     - *id006
 
@@ -183,7 +183,7 @@
     name: reflector16
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.426, 0, -0.284]
+      translation: [0, -0.426, -0.284]
     children:
     - *id006
 
@@ -191,7 +191,7 @@
     name: reflector17
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.426, 0, -0.142]
+      translation: [0, -0.426, -0.142]
     children:
     - *id006
 
@@ -199,7 +199,7 @@
     name: reflector18
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.426, 0, 0.0]
+      translation: [0, -0.426, 0.0]
     children:
     - *id006
 
@@ -207,7 +207,7 @@
     name: reflector19
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.426, 0, 0.142]
+      translation: [0, -0.426, 0.142]
     children:
     - *id006
 
@@ -215,7 +215,7 @@
     name: reflector20
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.426, 0, 0.284]
+      translation: [0, -0.426, 0.284]
     children:
     - *id006
 
@@ -223,7 +223,7 @@
     name: reflector21
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.426, 0, 0.426]
+      translation: [0, -0.426, 0.426]
     children:
     - *id006
 
@@ -231,7 +231,7 @@
     name: reflector22
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.284, 0, -0.426]
+      translation: [0, -0.284, -0.426]
     children:
     - *id006
 
@@ -239,7 +239,7 @@
     name: reflector23
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.284, 0, -0.284]
+      translation: [0, -0.284, -0.284]
     children:
     - *id006
 
@@ -247,7 +247,7 @@
     name: reflector24
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.284, 0, -0.142]
+      translation: [0, -0.284, -0.142]
     children:
     - *id006
 
@@ -255,7 +255,7 @@
     name: reflector25
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.284, 0, 0.0]
+      translation: [0, -0.284, 0.0]
     children:
     - *id006
 
@@ -263,7 +263,7 @@
     name: reflector26
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.284, 0, 0.142]
+      translation: [0, -0.284, 0.142]
     children:
     - *id006
 
@@ -271,7 +271,7 @@
     name: reflector27
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.284, 0, 0.284]
+      translation: [0, -0.284, 0.284]
     children:
     - *id006
 
@@ -279,7 +279,7 @@
     name: reflector28
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.284, 0, 0.426]
+      translation: [0, -0.284, 0.426]
     children:
     - *id006
 
@@ -287,7 +287,7 @@
     name: reflector29
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.142, 0, -0.426]
+      translation: [0, -0.142, -0.426]
     children:
     - *id006
 
@@ -295,7 +295,7 @@
     name: reflector30
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.142, 0, -0.284]
+      translation: [0, -0.142, -0.284]
     children:
     - *id006
 
@@ -303,7 +303,7 @@
     name: reflector31
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.142, 0, -0.142]
+      translation: [0, -0.142, -0.142]
     children:
     - *id006
 
@@ -311,7 +311,7 @@
     name: reflector32
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.142, 0, 0.0]
+      translation: [0, -0.142, 0.0]
     children:
     - *id006
 
@@ -319,7 +319,7 @@
     name: reflector33
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.142, 0, 0.142]
+      translation: [0, -0.142, 0.142]
     children:
     - *id006
 
@@ -327,7 +327,7 @@
     name: reflector34
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.142, 0, 0.284]
+      translation: [0, -0.142, 0.284]
     children:
     - *id006
 
@@ -335,7 +335,7 @@
     name: reflector35
     transform:
       rotation: [0, 0, 0]
-      translation: [-0.142, 0, 0.426]
+      translation: [0, -0.142, 0.426]
     children:
     - *id006
 
@@ -343,7 +343,7 @@
     name: reflector36
     transform:
       rotation: [0, 0, 0]
-      translation: [0.0, 0, -0.426]
+      translation: [0, 0.0, -0.426]
     children:
     - *id006
 
@@ -351,7 +351,7 @@
     name: reflector37
     transform:
       rotation: [0, 0, 0]
-      translation: [0.0, 0, -0.284]
+      translation: [0, 0.0, -0.284]
     children:
     - *id006
 
@@ -359,7 +359,7 @@
     name: reflector38
     transform:
       rotation: [0, 0, 0]
-      translation: [0.0, 0, -0.142]
+      translation: [0, 0.0, -0.142]
     children:
     - *id006
 
@@ -367,7 +367,7 @@
     name: reflector39
     transform:
       rotation: [0, 0, 0]
-      translation: [0.0, 0, 0.0]
+      translation: [0, 0.0, 0.0]
     children:
     - *id006
 
@@ -375,7 +375,7 @@
     name: reflector40
     transform:
       rotation: [0, 0, 0]
-      translation: [0.0, 0, 0.142]
+      translation: [0, 0.0, 0.142]
     children:
     - *id006
 
@@ -383,7 +383,7 @@
     name: reflector41
     transform:
       rotation: [0, 0, 0]
-      translation: [0.0, 0, 0.284]
+      translation: [0, 0.0, 0.284]
     children:
     - *id006
 
@@ -391,7 +391,7 @@
     name: reflector42
     transform:
       rotation: [0, 0, 0]
-      translation: [0.0, 0, 0.426]
+      translation: [0, 0.0, 0.426]
     children:
     - *id006
 
@@ -399,7 +399,7 @@
     name: reflector43
     transform:
       rotation: [0, 0, 0]
-      translation: [0.142, 0, -0.426]
+      translation: [0, 0.142, -0.426]
     children:
     - *id006
 
@@ -407,7 +407,7 @@
     name: reflector44
     transform:
       rotation: [0, 0, 0]
-      translation: [0.142, 0, -0.284]
+      translation: [0, 0.142, -0.284]
     children:
     - *id006
 
@@ -415,7 +415,7 @@
     name: reflector45
     transform:
       rotation: [0, 0, 0]
-      translation: [0.142, 0, -0.142]
+      translation: [0, 0.142, -0.142]
     children:
     - *id006
 
@@ -423,7 +423,7 @@
     name: reflector46
     transform:
       rotation: [0, 0, 0]
-      translation: [0.142, 0, 0.0]
+      translation: [0, 0.142, 0.0]
     children:
     - *id006
 
@@ -431,7 +431,7 @@
     name: reflector47
     transform:
       rotation: [0, 0, 0]
-      translation: [0.142, 0, 0.142]
+      translation: [0, 0.142, 0.142]
     children:
     - *id006
 
@@ -439,7 +439,7 @@
     name: reflector48
     transform:
       rotation: [0, 0, 0]
-      translation: [0.142, 0, 0.284]
+      translation: [0, 0.142, 0.284]
     children:
     - *id006
 
@@ -447,7 +447,7 @@
     name: reflector49
     transform:
       rotation: [0, 0, 0]
-      translation: [0.142, 0, 0.426]
+      translation: [0, 0.142, 0.426]
     children:
     - *id006
 
@@ -455,7 +455,7 @@
     name: reflector50
     transform:
       rotation: [0, 0, 0]
-      translation: [0.284, 0, -0.426]
+      translation: [0, 0.284, -0.426]
     children:
     - *id006
 
@@ -463,7 +463,7 @@
     name: reflector51
     transform:
       rotation: [0, 0, 0]
-      translation: [0.284, 0, -0.284]
+      translation: [0, 0.284, -0.284]
     children:
     - *id006
 
@@ -471,7 +471,7 @@
     name: reflector52
     transform:
       rotation: [0, 0, 0]
-      translation: [0.284, 0, -0.142]
+      translation: [0, 0.284, -0.142]
     children:
     - *id006
 
@@ -479,7 +479,7 @@
     name: reflector53
     transform:
       rotation: [0, 0, 0]
-      translation: [0.284, 0, 0.0]
+      translation: [0, 0.284, 0.0]
     children:
     - *id006
 
@@ -487,7 +487,7 @@
     name: reflector54
     transform:
       rotation: [0, 0, 0]
-      translation: [0.284, 0, 0.142]
+      translation: [0, 0.284, 0.142]
     children:
     - *id006
 
@@ -495,7 +495,7 @@
     name: reflector55
     transform:
       rotation: [0, 0, 0]
-      translation: [0.284, 0, 0.284]
+      translation: [0, 0.284, 0.284]
     children:
     - *id006
 
@@ -503,7 +503,7 @@
     name: reflector56
     transform:
       rotation: [0, 0, 0]
-      translation: [0.284, 0, 0.426]
+      translation: [0, 0.284, 0.426]
     children:
     - *id006
 
@@ -511,7 +511,7 @@
     name: reflector57
     transform:
       rotation: [0, 0, 0]
-      translation: [0.426, 0, -0.426]
+      translation: [0, 0.426, -0.426]
     children:
     - *id006
 
@@ -519,7 +519,7 @@
     name: reflector58
     transform:
       rotation: [0, 0, 0]
-      translation: [0.426, 0, -0.284]
+      translation: [0, 0.426, -0.284]
     children:
     - *id006
 
@@ -527,7 +527,7 @@
     name: reflector59
     transform:
       rotation: [0, 0, 0]
-      translation: [0.426, 0, -0.142]
+      translation: [0, 0.426, -0.142]
     children:
     - *id006
 
@@ -535,7 +535,7 @@
     name: reflector60
     transform:
       rotation: [0, 0, 0]
-      translation: [0.426, 0, 0.0]
+      translation: [0, 0.426, 0.0]
     children:
     - *id006
 
@@ -543,7 +543,7 @@
     name: reflector61
     transform:
       rotation: [0, 0, 0]
-      translation: [0.426, 0, 0.142]
+      translation: [0, 0.426, 0.142]
     children:
     - *id006
 
@@ -551,7 +551,7 @@
     name: reflector62
     transform:
       rotation: [0, 0, 0]
-      translation: [0.426, 0, 0.284]
+      translation: [0, 0.426, 0.284]
     children:
     - *id006
 
@@ -559,7 +559,7 @@
     name: reflector63
     transform:
       rotation: [0, 0, 0]
-      translation: [0.426, 0, 0.426]
+      translation: [0, 0.426, 0.426]
     children:
     - *id006
 
@@ -567,7 +567,7 @@
     name: reflector64
     transform:
       rotation: [0, 0, 0]
-      translation: [0.568, 0, -0.426]
+      translation: [0, 0.568, -0.426]
     children:
     - *id006
 
@@ -575,7 +575,7 @@
     name: reflector65
     transform:
       rotation: [0, 0, 0]
-      translation: [0.568, 0, -0.284]
+      translation: [0, 0.568, -0.284]
     children:
     - *id006
 
@@ -583,7 +583,7 @@
     name: reflector66
     transform:
       rotation: [0, 0, 0]
-      translation: [0.568, 0, -0.142]
+      translation: [0, 0.568, -0.142]
     children:
     - *id006
 
@@ -591,7 +591,7 @@
     name: reflector67
     transform:
       rotation: [0, 0, 0]
-      translation: [0.568, 0, 0.0]
+      translation: [0, 0.568, 0.0]
     children:
     - *id006
 
@@ -599,7 +599,7 @@
     name: reflector68
     transform:
       rotation: [0, 0, 0]
-      translation: [0.568, 0, 0.142]
+      translation: [0, 0.568, 0.142]
     children:
     - *id006
 
@@ -607,7 +607,7 @@
     name: reflector69
     transform:
       rotation: [0, 0, 0]
-      translation: [0.568, 0, 0.284]
+      translation: [0, 0.568, 0.284]
     children:
     - *id006
 
@@ -615,7 +615,7 @@
     name: reflector70
     transform:
       rotation: [0, 0, 0]
-      translation: [0.568, 0, 0.426]
+      translation: [0, 0.568, 0.426]
     children:
     - *id006
 
@@ -623,7 +623,7 @@
     name: reflector71
     transform:
       rotation: [0, 0, 0]
-      translation: [0.71, 0, -0.426]
+      translation: [0, 0.71, -0.426]
     children:
     - *id006
 
@@ -631,7 +631,7 @@
     name: reflector72
     transform:
       rotation: [0, 0, 0]
-      translation: [0.71, 0, -0.284]
+      translation: [0, 0.71, -0.284]
     children:
     - *id006
 
@@ -639,7 +639,7 @@
     name: reflector73
     transform:
       rotation: [0, 0, 0]
-      translation: [0.71, 0, -0.142]
+      translation: [0, 0.71, -0.142]
     children:
     - *id006
 
@@ -647,7 +647,7 @@
     name: reflector74
     transform:
       rotation: [0, 0, 0]
-      translation: [0.71, 0, 0.0]
+      translation: [0, 0.71, 0.0]
     children:
     - *id006
 
@@ -655,7 +655,7 @@
     name: reflector75
     transform:
       rotation: [0, 0, 0]
-      translation: [0.71, 0, 0.142]
+      translation: [0, 0.71, 0.142]
     children:
     - *id006
 
@@ -663,7 +663,7 @@
     name: reflector76
     transform:
       rotation: [0, 0, 0]
-      translation: [0.71, 0, 0.284]
+      translation: [0, 0.71, 0.284]
     children:
     - *id006
 
@@ -671,6 +671,6 @@
     name: reflector77
     transform:
       rotation: [0, 0, 0]
-      translation: [0.71, 0, 0.426]
+      translation: [0, 0.71, 0.426]
     children:
     - *id006

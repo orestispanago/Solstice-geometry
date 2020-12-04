@@ -55,6 +55,5 @@ a = format_yaml()
 cmd = ['solstice', '-D', '45.0,0', '-n', '100', '-v', 
        '-R', 'geometry/receiver.yaml']
 
-
-df = run_solstice_df()
+df = run_solstice_df(a)
 # run_solstice()
