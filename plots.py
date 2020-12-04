@@ -28,8 +28,8 @@ def plot_heatmap(vtk_path):
 obj_fpath = "export/data/shapes/Transversal_45.0_0.obj"
 vtk_fpath = "export/data/shapes/Transversal_45.0_0.vtk"
 
-plot_obj_vtk(obj_fpath, vtk_fpath)
+# plot_obj_vtk(obj_fpath, vtk_fpath)
 
 heatmap_vtk_fpath = "export/data/shapes/Transversal_45.0_0_heatmap.vtk"
 
-plot_heatmap(heatmap_vtk_fpath)
+# plot_heatmap(heatmap_vtk_fpath)

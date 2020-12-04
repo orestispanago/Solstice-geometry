@@ -150,4 +150,4 @@ from traces import Transversal
 
 transversal = Transversal(45, 135, 1, 10000, "data.yaml")
 
-transversal.export_heat()
+transversal.export_one_obj(0)

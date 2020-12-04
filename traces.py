@@ -61,7 +61,8 @@ class Trace():
                 subprocess.run(cmd, stdout=f)
             utils.del_first_line(vtkpath)
 
-    def export_obj(self):
+    def export_objs(self):
+        """ Export first and last angle_pairs objects """
         for pair in [self.angle_pairs[0], self.angle_pairs[-1]]:
             pair_str = pair.replace(',', '_')
             fname = f"{self.name}_{pair_str}.obj"
@@ -71,6 +72,36 @@ class Trace():
             with open(objpath, 'w') as f:
                 subprocess.run(cmd, stdout=f)
                 
+    def export_one_obj(self, angle_pair_index):
+        """ Export one obj for the provided angle_pair index """
+        pair = self.angle_pairs[angle_pair_index]
+        pair_str = pair.replace(',', '_')
+        fname = f"{self.name}_{pair_str}.obj"
+        utils.mkdir_if_not_exists(self.shape_dir)
+        objpath = os.path.join(self.shape_dir, fname)
+        cmd = f'solstice  -n 100 -g format=obj -t1 -D {pair} -R {receiver} {self.geometry}'.split()
+        with open(objpath, 'w') as f:
+            subprocess.run(cmd, stdout=f)
+        return objpath
+    
+    def export_obj_vtk(self, angle_pair_index, nrays=100):
+        """ Export one obj and vtk for the provided angle_pair index,
+        Returns paths to be used in pyvista """
+        pair = self.angle_pairs[angle_pair_index]
+        pair_str = pair.replace(',', '_')
+        fname = f"{self.name}_{pair_str}"
+        utils.mkdir_if_not_exists(self.shape_dir)
+        objpath = os.path.join(self.shape_dir, fname + ".obj")
+        vtkpath = os.path.join(self.shape_dir, fname + ".vtk")
+        obj_cmd = f'solstice  -n 100 -g format=obj -t1 -D {pair} -R {receiver} {self.geometry}'.split()
+        vtk_cmd = f'solstice  -n {nrays} -p default -t1 -D {pair} -R {receiver} {self.geometry}'.split()
+        with open(objpath, 'w') as o:
+            subprocess.run(obj_cmd, stdout=o)
+        with open(vtkpath, 'w') as v:
+                subprocess.run(vtk_cmd, stdout=v)
+        utils.del_first_line(vtkpath)
+        return objpath, vtkpath
+    
     def export_heat(self, nrays=1000000):
         receiver_heat = os.path.join(CWD, "geometry", "heatmap", "receiver.yaml")
         geometry_heat = os.path.join(CWD, "geometry", "heatmap", "geometry.yaml")
