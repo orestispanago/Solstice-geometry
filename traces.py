@@ -34,7 +34,7 @@ class Trace():
             for i in range(0, len(self.angle_pairs), 50):
                 chunk = self.angle_pairs[i:i + 50]
                 chunk = ":".join(chunk)
-                cmd = f'solstice -D {chunk} -n {self.rays} -v -R {receiver} {self.geometry}'.split()
+                cmd = f'solstice -D {chunk} -n {self.rays} -v -R {receiver} {self.geometry_path}'.split()
                 subprocess.run(cmd, stdout=f)
 
     def run_to_df(self):
@@ -57,7 +57,7 @@ class Trace():
             fname = f"{self.name}_{pair_str}.vtk"
             utils.mkdir_if_not_exists(self.shape_dir)
             vtkpath = os.path.join(self.exp_dir, "shapes", fname)
-            cmd = f'solstice  -n {nrays} -p default -t1 -D {pair} -R {receiver} {self.geometry}'.split()
+            cmd = f'solstice  -n {nrays} -p default -t1 -D {pair} -R {receiver} {self.geometry_path}'.split()
             with open(vtkpath, 'w') as f:
                 subprocess.run(cmd, stdout=f)
             utils.del_first_line(vtkpath)
@@ -69,7 +69,7 @@ class Trace():
             fname = f"{self.name}_{pair_str}.obj"
             utils.mkdir_if_not_exists(self.shape_dir)
             objpath = os.path.join(self.shape_dir, fname)
-            cmd = f'solstice  -n 100 -g format=obj -t1 -D {pair} -R {receiver} {self.geometry}'.split()
+            cmd = f'solstice  -n 100 -g format=obj -t1 -D {pair} -R {receiver} {self.geometry_path}'.split()
             with open(objpath, 'w') as f:
                 subprocess.run(cmd, stdout=f)
                 
@@ -80,7 +80,7 @@ class Trace():
         fname = f"{self.name}_{pair_str}.obj"
         utils.mkdir_if_not_exists(self.shape_dir)
         objpath = os.path.join(self.shape_dir, fname)
-        cmd = f'solstice  -n 100 -g format=obj -t1 -D {pair} -R {receiver} {self.geometry}'.split()
+        cmd = f'solstice  -n 100 -g format=obj -t1 -D {pair} -R {receiver} {self.geometry_path}'.split()
         with open(objpath, 'w') as f:
             subprocess.run(cmd, stdout=f)
         return objpath
@@ -94,8 +94,8 @@ class Trace():
         utils.mkdir_if_not_exists(self.shape_dir)
         objpath = os.path.join(self.shape_dir, fname + ".obj")
         vtkpath = os.path.join(self.shape_dir, fname + ".vtk")
-        obj_cmd = f'solstice  -n 100 -g format=obj -t1 -D {pair} -R {receiver} {self.geometry}'.split()
-        vtk_cmd = f'solstice  -n {nrays} -p default -t1 -D {pair} -R {receiver} {self.geometry}'.split()
+        obj_cmd = f'solstice  -n 100 -g format=obj -t1 -D {pair} -R {receiver} {self.geometry_path}'.split()
+        vtk_cmd = f'solstice  -n {nrays} -p default -t1 -D {pair} -R {receiver} {self.geometry_path}'.split()
         with open(objpath, 'w') as o:
             subprocess.run(obj_cmd, stdout=o)
         with open(vtkpath, 'w') as v:
@@ -118,7 +118,7 @@ class Trace():
 class Transversal(Trace):
     def __init__(self, min_angle, max_angle, step, rays, geometry):
         super().__init__(min_angle, max_angle, step, rays, geometry, name=self.__class__.__name__)
-        self.angle_pairs = [f"{a:.1f},0" for a in self.angles]
+        self.angle_pairs = [f"{a:.1f},45" for a in self.angles]
         self.sun_col = 3  # sun direction column in txt output file
         self.xlabel = "Azimuth $(\degree)$, 90$\degree$=Normal Incidence"
         

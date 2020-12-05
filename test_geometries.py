@@ -11,7 +11,7 @@ def export_obj_vtk(az, zen):
     pairs = f"{az:.1f},{zen:.1f}"
     objpath = os.path.join("out", pairs + ".obj")
     vtkpath = os.path.join("out", pairs+ ".vtk")
-    obj_cmd = f'solstice  -n 100 -g format=obj -t1 -D {pairs} -R {receiver} {geometry}'.split()
+    obj_cmd = f'solstice  -n 1 -g format=obj -t1 -D {pairs} -R {receiver} {geometry}'.split()
     vtk_cmd = f'solstice  -n 100 -p default -t1 -D {pairs} -R {receiver} {geometry}'.split()
     with open(objpath, 'w') as o:
         subprocess.run(obj_cmd, stdout=o)

@@ -36,8 +36,8 @@
     name: absorber
     primary: 0
     transform:
-      rotation: [0, 90, 0]
-      translation: [-1.5, 0, 0]
+      rotation: [0, -20, 0]
+      translation: [-0.5130302149885031, 0, 1.4095389311788626]
     anchors:
     - name: anchor0
       position: [0, 0, 0]
@@ -59,7 +59,7 @@
       primary: 1
       geometry: *id005
 
-- entity:
+- template: &id007
     name: reflector1
     transform:
       rotation: [0, 0, 0]
@@ -67,7 +67,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id008
     name: reflector2
     transform:
       rotation: [0, 0, 0]
@@ -75,7 +75,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id009
     name: reflector3
     transform:
       rotation: [0, 0, 0]
@@ -83,7 +83,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id010
     name: reflector4
     transform:
       rotation: [0, 0, 0]
@@ -91,7 +91,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id011
     name: reflector5
     transform:
       rotation: [0, 0, 0]
@@ -99,7 +99,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id012
     name: reflector6
     transform:
       rotation: [0, 0, 0]
@@ -107,7 +107,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id013
     name: reflector7
     transform:
       rotation: [0, 0, 0]
@@ -115,7 +115,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id014
     name: reflector8
     transform:
       rotation: [0, 0, 0]
@@ -123,7 +123,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id015
     name: reflector9
     transform:
       rotation: [0, 0, 0]
@@ -131,7 +131,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id016
     name: reflector10
     transform:
       rotation: [0, 0, 0]
@@ -139,7 +139,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id017
     name: reflector11
     transform:
       rotation: [0, 0, 0]
@@ -147,7 +147,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id018
     name: reflector12
     transform:
       rotation: [0, 0, 0]
@@ -155,7 +155,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id019
     name: reflector13
     transform:
       rotation: [0, 0, 0]
@@ -163,7 +163,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id020
     name: reflector14
     transform:
       rotation: [0, 0, 0]
@@ -171,7 +171,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id021
     name: reflector15
     transform:
       rotation: [0, 0, 0]
@@ -179,7 +179,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id022
     name: reflector16
     transform:
       rotation: [0, 0, 0]
@@ -187,7 +187,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id023
     name: reflector17
     transform:
       rotation: [0, 0, 0]
@@ -195,7 +195,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id024
     name: reflector18
     transform:
       rotation: [0, 0, 0]
@@ -203,7 +203,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id025
     name: reflector19
     transform:
       rotation: [0, 0, 0]
@@ -211,7 +211,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id026
     name: reflector20
     transform:
       rotation: [0, 0, 0]
@@ -219,7 +219,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id027
     name: reflector21
     transform:
       rotation: [0, 0, 0]
@@ -227,7 +227,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id028
     name: reflector22
     transform:
       rotation: [0, 0, 0]
@@ -235,7 +235,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id029
     name: reflector23
     transform:
       rotation: [0, 0, 0]
@@ -243,7 +243,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id030
     name: reflector24
     transform:
       rotation: [0, 0, 0]
@@ -251,7 +251,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id031
     name: reflector25
     transform:
       rotation: [0, 0, 0]
@@ -259,7 +259,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id032
     name: reflector26
     transform:
       rotation: [0, 0, 0]
@@ -267,7 +267,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id033
     name: reflector27
     transform:
       rotation: [0, 0, 0]
@@ -275,7 +275,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id034
     name: reflector28
     transform:
       rotation: [0, 0, 0]
@@ -283,7 +283,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id035
     name: reflector29
     transform:
       rotation: [0, 0, 0]
@@ -291,7 +291,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id036
     name: reflector30
     transform:
       rotation: [0, 0, 0]
@@ -299,7 +299,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id037
     name: reflector31
     transform:
       rotation: [0, 0, 0]
@@ -307,7 +307,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id038
     name: reflector32
     transform:
       rotation: [0, 0, 0]
@@ -315,7 +315,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id039
     name: reflector33
     transform:
       rotation: [0, 0, 0]
@@ -323,7 +323,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id040
     name: reflector34
     transform:
       rotation: [0, 0, 0]
@@ -331,7 +331,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id041
     name: reflector35
     transform:
       rotation: [0, 0, 0]
@@ -339,7 +339,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id042
     name: reflector36
     transform:
       rotation: [0, 0, 0]
@@ -347,7 +347,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id043
     name: reflector37
     transform:
       rotation: [0, 0, 0]
@@ -355,7 +355,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id044
     name: reflector38
     transform:
       rotation: [0, 0, 0]
@@ -363,7 +363,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id045
     name: reflector39
     transform:
       rotation: [0, 0, 0]
@@ -371,7 +371,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id046
     name: reflector40
     transform:
       rotation: [0, 0, 0]
@@ -379,7 +379,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id047
     name: reflector41
     transform:
       rotation: [0, 0, 0]
@@ -387,7 +387,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id048
     name: reflector42
     transform:
       rotation: [0, 0, 0]
@@ -395,7 +395,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id049
     name: reflector43
     transform:
       rotation: [0, 0, 0]
@@ -403,7 +403,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id050
     name: reflector44
     transform:
       rotation: [0, 0, 0]
@@ -411,7 +411,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id051
     name: reflector45
     transform:
       rotation: [0, 0, 0]
@@ -419,7 +419,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id052
     name: reflector46
     transform:
       rotation: [0, 0, 0]
@@ -427,7 +427,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id053
     name: reflector47
     transform:
       rotation: [0, 0, 0]
@@ -435,7 +435,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id054
     name: reflector48
     transform:
       rotation: [0, 0, 0]
@@ -443,7 +443,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id055
     name: reflector49
     transform:
       rotation: [0, 0, 0]
@@ -451,7 +451,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id056
     name: reflector50
     transform:
       rotation: [0, 0, 0]
@@ -459,7 +459,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id057
     name: reflector51
     transform:
       rotation: [0, 0, 0]
@@ -467,7 +467,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id058
     name: reflector52
     transform:
       rotation: [0, 0, 0]
@@ -475,7 +475,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id059
     name: reflector53
     transform:
       rotation: [0, 0, 0]
@@ -483,7 +483,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id060
     name: reflector54
     transform:
       rotation: [0, 0, 0]
@@ -491,7 +491,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id061
     name: reflector55
     transform:
       rotation: [0, 0, 0]
@@ -499,7 +499,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id062
     name: reflector56
     transform:
       rotation: [0, 0, 0]
@@ -507,7 +507,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id063
     name: reflector57
     transform:
       rotation: [0, 0, 0]
@@ -515,7 +515,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id064
     name: reflector58
     transform:
       rotation: [0, 0, 0]
@@ -523,7 +523,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id065
     name: reflector59
     transform:
       rotation: [0, 0, 0]
@@ -531,7 +531,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id066
     name: reflector60
     transform:
       rotation: [0, 0, 0]
@@ -539,7 +539,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id067
     name: reflector61
     transform:
       rotation: [0, 0, 0]
@@ -547,7 +547,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id068
     name: reflector62
     transform:
       rotation: [0, 0, 0]
@@ -555,7 +555,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id069
     name: reflector63
     transform:
       rotation: [0, 0, 0]
@@ -563,7 +563,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id070
     name: reflector64
     transform:
       rotation: [0, 0, 0]
@@ -571,7 +571,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id071
     name: reflector65
     transform:
       rotation: [0, 0, 0]
@@ -579,7 +579,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id072
     name: reflector66
     transform:
       rotation: [0, 0, 0]
@@ -587,7 +587,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id073
     name: reflector67
     transform:
       rotation: [0, 0, 0]
@@ -595,7 +595,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id074
     name: reflector68
     transform:
       rotation: [0, 0, 0]
@@ -603,7 +603,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id075
     name: reflector69
     transform:
       rotation: [0, 0, 0]
@@ -611,7 +611,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id076
     name: reflector70
     transform:
       rotation: [0, 0, 0]
@@ -619,7 +619,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id077
     name: reflector71
     transform:
       rotation: [0, 0, 0]
@@ -627,7 +627,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id078
     name: reflector72
     transform:
       rotation: [0, 0, 0]
@@ -635,7 +635,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id079
     name: reflector73
     transform:
       rotation: [0, 0, 0]
@@ -643,7 +643,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id080
     name: reflector74
     transform:
       rotation: [0, 0, 0]
@@ -651,7 +651,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id081
     name: reflector75
     transform:
       rotation: [0, 0, 0]
@@ -659,7 +659,7 @@
     children:
     - *id006
 
-- entity:
+- template: &id082
     name: reflector76
     transform:
       rotation: [0, 0, 0]
@@ -667,10 +667,94 @@
     children:
     - *id006
 
-- entity:
+- template: &id083
     name: reflector77
     transform:
       rotation: [0, 0, 0]
       translation: [0, 0.71, 0.426]
     children:
     - *id006
+
+- entity:
+    name: all_reflectors
+    transform:
+      rotation: [0, 70, 0]
+      translation: [0, 0, 0]
+    children:
+    - *id007
+    - *id008
+    - *id009
+    - *id010
+    - *id011
+    - *id012
+    - *id013
+    - *id014
+    - *id015
+    - *id016
+    - *id017
+    - *id018
+    - *id019
+    - *id020
+    - *id021
+    - *id022
+    - *id023
+    - *id024
+    - *id025
+    - *id026
+    - *id027
+    - *id028
+    - *id029
+    - *id030
+    - *id031
+    - *id032
+    - *id033
+    - *id034
+    - *id035
+    - *id036
+    - *id037
+    - *id038
+    - *id039
+    - *id040
+    - *id041
+    - *id042
+    - *id043
+    - *id044
+    - *id045
+    - *id046
+    - *id047
+    - *id048
+    - *id049
+    - *id050
+    - *id051
+    - *id052
+    - *id053
+    - *id054
+    - *id055
+    - *id056
+    - *id057
+    - *id058
+    - *id059
+    - *id060
+    - *id061
+    - *id062
+    - *id063
+    - *id064
+    - *id065
+    - *id066
+    - *id067
+    - *id068
+    - *id069
+    - *id070
+    - *id071
+    - *id072
+    - *id073
+    - *id074
+    - *id075
+    - *id076
+    - *id077
+    - *id078
+    - *id079
+    - *id080
+    - *id081
+    - *id082
+    - *id083
