@@ -118,7 +118,7 @@ class Trace():
 class Transversal(Trace):
     def __init__(self, min_angle, max_angle, step, rays, geometry):
         super().__init__(min_angle, max_angle, step, rays, geometry, name=self.__class__.__name__)
-        self.angle_pairs = [f"{a:.1f},45" for a in self.angles]
+        self.angle_pairs = [f"{a:.1f},0" for a in self.angles]
         self.sun_col = 3  # sun direction column in txt output file
         self.xlabel = "Azimuth $(\degree)$, 90$\degree$=Normal Incidence"
         
