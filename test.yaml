@@ -1,0 +1,23 @@
+- sun:
+    dni: 1000
+    pillbox: {half_angle: 0}
+
+- material: &id003
+    front:
+      matte: &id001 {reflectivity: 0}
+    back:
+      matte: *id001
+
+- material:
+    front:
+      mirror: &id002 {reflectivity: 1, slope_error: 0}
+    back:
+      mirror: *id002
+
+- geometry:
+  - material: *id003
+  - plane:
+      clip:
+      - {operation: AND}
+  material:
+    material: *id003

@@ -16,9 +16,8 @@ class MyDumper(yaml.SafeDumper):
 
 
 class BaseGeometry:
-    def __init__(self):
-        self.sun = {"sun": {"dni": 1000}}
-        self.material_black = {
+    def __init__(self, sun={"sun": {"dni": 1000}},
+                 material_black={
             "material": {
                 "back": {"matte":
                              {"reflectivity": 0}
@@ -27,7 +26,10 @@ class BaseGeometry:
                               {"reflectivity": 0}
                           }
             }
-        }
+        },
+        ):
+        self.sun = sun
+        self.material_black = material_black
         self.material_specular = {
             "material": {
                 "back": {"mirror": {"reflectivity": 1,
@@ -158,17 +160,22 @@ class BaseGeometry:
             [x_abs, 0, z_abs]
         self.entity_all["entity"]["transform"]["rotation"] = [0, tilt, 0]
         return self
-
-    def set_absorber_vertices(self, len_x, len_y):
+    
+    def plane_vertices(self, len_x, len_y):
         x = len_x / 2
         y = len_y / 2
-        self.geometry_receiver["geometry"][0] \
-            ["plane"]["clip"][0]["vertices"] = [[-x, -y],
-                                                [-x, y],
-                                                [x, y],
-                                                [x, -y]]
+        return [[-x, -y], [-x, y], [x, y], [x, -y]]
+    
+    def set_absorber_vertices(self, len_x, len_y):
+        self.geometry_receiver["geometry"][0]["plane"]["clip"][0]["vertices"] = \
+            self.plane_vertices(len_x, len_y)
         return self
-
+    
+    def set_facet_vertices(self, len_x, len_y):
+        self.geometry_facet["geometry"][0]["plane"]["clip"][0]["vertices"] = \
+            self.plane_vertices(len_x, len_y)
+        return self
+    
     def to_list(self):
         return [getattr(self, key) for key in self.__dict__.keys()]
 
@@ -182,7 +189,7 @@ bg = BaseGeometry()
 
 tg = BaseGeometry().set_tilt(45).set_absorber_vertices(0.5, 0.5)
 
-bg.write_yaml('geometry/data.yaml')
+tg.write_yaml('geometry/data.yaml')
 obj, vtk = export_obj_vtk(180, 25)
 plot_obj_vtk(obj, vtk)
 
