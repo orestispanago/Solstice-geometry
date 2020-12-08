@@ -20,14 +20,14 @@ class BaseGeometry:
                  material_black={
             "material": {
                 "back": {"matte":
-                             {"reflectivity": 0}
+                         {"reflectivity": 0}
                          },
                 "front": {"matte":
-                              {"reflectivity": 0}
+                          {"reflectivity": 0}
                           }
             }
         },
-        ):
+    ):
         self.sun = sun
         self.material_black = material_black
         self.material_specular = {
@@ -44,13 +44,13 @@ class BaseGeometry:
             "geometry": [{
                 "material": self.material_specular["material"],
                 "plane": {"clip":
-                              [{"operation": "AND",
-                                "vertices": [
-                                    [-0.07, -0.07],
-                                    [-0.07, 0.07],
-                                    [0.07, 0.07],
-                                    [0.07, -0.07]]
-                                }]
+                          [{"operation": "AND",
+                            "vertices": [
+                                [-0.07, -0.07],
+                                [-0.07, 0.07],
+                                [0.07, 0.07],
+                                [0.07, -0.07]]
+                            }]
                           }
             }
             ]
@@ -76,35 +76,20 @@ class BaseGeometry:
         self.entity_base = {
             "entity":
                 {"name": "base",
-                "transform":
-                  {"rotation": [0, 45, 0],
+                 "transform":
+                 {"rotation": [0, 0, 0],
                   "translation": [0, 0, 0]},
-                "children":
-                [{"name": "absorber",
-                  "primary": 0,
-                  "transform":
-                    {"rotation": [0, 90, 0],
+                 "children":
+                 [{"name": "absorber",
+                   "primary": 0,
+                   "transform":
+                   {"rotation": [0, 90, 0],
                     "translation": [-1.5, 0, 0]},
-                  "anchors":
-                  [{"name": "anchor0",
-                    "position": [0, 0, 0]},
-                  {"geometry": self.geometry_receiver["geometry"]}
-                ]}]}}
-        # self.entity_absorber = {
-        #     "entity": {
-        #         "name": "absorber",
-        #         "primary": 0,
-        #         "transform": {"rotation": [0, 90, 0],
-        #                       "translation": [-1.5, 0, 0]},
-        #         "anchors": [
-        #             {
-        #                 "name": "anchor0",
-        #                 "position": [0, 0, 0]  # in the referential of the receiver
-        #             }
-        #         ],
-        #         "geometry": self.geometry_receiver["geometry"]
-        #     }
-        # }
+                   "anchors":
+                   [{"name": "anchor0",
+                     "position": [0, 0, 0]}],
+                   "geometry": self.geometry_receiver["geometry"]
+                   }]}}
         self.template_so_facet = {
             "template": {
                 "name": "so_facet",
@@ -113,8 +98,9 @@ class BaseGeometry:
                 "zx_pivot": {
                     "ref_point": [0, 0, 0],
                     "target": {"anchor":
-                                   self.entity_absorber["entity"]["name"] + \
-                   "." + self.entity_absorber["entity"]["anchors"][0]["name"]},
+                               self.entity_base["entity"]["name"] + "." +
+                               self.entity_base["entity"]["children"][0]["name"] + "." +
+                               self.entity_base["entity"]["children"][0]["anchors"][0]["name"]},
                 },
                 "children": [
                     {
@@ -134,11 +120,12 @@ class BaseGeometry:
             }
 
         }
-        self.entity_all = {
+        self.entity_reflectors = {
             "entity": {
-                "name": "all_reflectors",
-                "transform": {"rotation": [0, 0, 0],
-                              "translation": [0, 0, 0]},
+                "name": "reflectors",
+                "transform":
+                {"rotation": self.entity_base["entity"]["transform"]["rotation"],
+                 "translation": [0, 0, 0]},
                 "children": []
             }
         }
@@ -159,20 +146,19 @@ class BaseGeometry:
         for x in centered_x:
             for y in centered_y:
                 template_ref = self.create_reflector(count, x, y)
-                self.entity_all["entity"]["children"]. \
+                self.entity_reflectors["entity"]["children"]. \
                     append(template_ref["template"])
                 count += 1
         return self
 
+    def set_dni(self, dni):
+        self.sun["sun"]["dni"] = dni
+        return self
+
     def set_tilt(self, tilt):
-        focal_length = 1.5
-        z_abs = float(focal_length * np.cos(np.deg2rad((90 - tilt))))
-        x_abs = float(-focal_length * np.sin(np.deg2rad((90 - tilt))))
-        self.entity_absorber["entity"]["transform"]["rotation"] = \
-            [0, -(270 - tilt), 0]
-        self.entity_absorber["entity"]["transform"]["translation"] = \
-            [x_abs, 0, z_abs]
-        self.entity_all["entity"]["transform"]["rotation"] = [0, tilt, 0]
+        self.entity_base["entity"]["transform"]["rotation"] = [0, tilt, 0]
+        self.entity_reflectors["entity"]["transform"]["rotation"] =\
+            self.entity_base["entity"]["transform"]["rotation"]
         return self
 
     def plane_vertices(self, len_x, len_y):
@@ -199,15 +185,15 @@ class BaseGeometry:
                       default_flow_style=None, sort_keys=False)
 
 
-bg = BaseGeometry()
+bg = BaseGeometry().set_tilt(45)
 
-tg = BaseGeometry().set_tilt(45)
+# tg = BaseGeometry().set_tilt(45)
 
-tg.write_yaml('geometry/data1.yaml')
-obj, vtk = export_obj_vtk(180, 25)
-plot_obj_vtk(obj, vtk)
+bg.write_yaml('geometry/data1.yaml')
+# obj, vtk = export_obj_vtk(180, 25, geometry="geometry/data1.yaml")
+# plot_obj_vtk(obj, vtk)
 
-# transv = Transversal(180, 225, 1, 100000, "data.yaml")
+# transv = Transversal(180, 225, 1, 100000, "data1.yaml")
 # tr_df = transv.run_to_df()
 
 # tg.write_yaml('geometry/data.yaml')

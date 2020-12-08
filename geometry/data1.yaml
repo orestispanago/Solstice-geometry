@@ -37,7 +37,7 @@
 - entity:
     name: base
     transform:
-      rotation: [0, 45, 0]
+      rotation: &id006 [0, 0, 0]
       translation: [0, 0, 0]
     children:
     - name: absorber
@@ -48,18 +48,7 @@
       anchors:
       - name: anchor0
         position: [0, 0, 0]
-      - geometry: *id003
-
-- entity:
-    name: absorber
-    primary: 0
-    transform:
-      rotation: [0, -225, 0]
-      translation: [-1.0606601717798212, 0, 1.0606601717798214]
-    anchors:
-    - name: anchor0
-      position: [0, 0, 0]
-    geometry: *id003
+      geometry: *id003
 
 - template: &id005
     name: so_facet
@@ -68,7 +57,7 @@
       translation: [0, 0, 0]
     zx_pivot:
       ref_point: [0, 0, 0]
-      target: {anchor: absorber.anchor0}
+      target: {anchor: base.absorber.anchor0}
     children:
     - name: facet
       transform:
@@ -86,9 +75,9 @@
     - *id005
 
 - entity:
-    name: all_reflectors
+    name: reflectors
     transform:
-      rotation: [0, 45, 0]
+      rotation: *id006
       translation: [0, 0, 0]
     children:
     - name: reflector1
