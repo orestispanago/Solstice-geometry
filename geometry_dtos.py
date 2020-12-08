@@ -3,10 +3,10 @@ import yaml
 class GeometryDAO:
     def __init__(self):
         pass
-    
+
     def to_list(self):
         return [getattr(self, key) for key in self.__dict__.keys()]
-    
+
     def write_yaml(self, fpath):
         with open(fpath, 'w') as outfile:
             yaml.dump(self.to_list(), outfile, Dumper=MyDumper,
@@ -26,8 +26,8 @@ class DTO:
         pass
     def to_dict(self):
         return {self.__class__.__name__.lower() : self.__dict__}
-    
-    
+
+
 class Sun(DTO):
     def __init__(self, dni=1000, pillbox=0):
         self.dni = dni
@@ -45,13 +45,13 @@ class Mirror(DTO):
 class Material(DTO):
     def __init__(self, front, back):
         self.front = front.to_dict()
-        self.back = back.to_dict()   
+        self.back = back.to_dict()
 
 class Vertices(DTO):
     def __init__(self, dimx=0.7, dimy=0.7):
         self.vertices = self.vertices(dimx, dimy)
 
-    
+
 class Clip(DTO):
     def __init__(self, vertices, operation="AND"):
         self.operation = operation
@@ -65,12 +65,27 @@ class Geometry(DTO):
     def __init__(self, material, plane):
         self.material = material.__dict__
         self.plane = plane.__dict__
-        
+
 def vertices(dimx, dimy):
     x = dimx/2
     y = dimy/2
-    return [[-x, -y], [-x, y], [x, y], [x, -y]]      
+    return [[-x, -y], [-x, y], [x, y], [x, -y]]
 
+class Template(DTO):
+    def __init__(self, name, children, rotation=[0, 0, 0], translation=[0, 0, 0]):
+        self.name = name
+        self.transform = {"rotation":rotation, "translation": translation}
+        self.children =[i.__dict__ for i in children]
+    def set_translation(self, translation):
+        self.transform["translation"] = translation
+        return self
+    def set_rotation(self, rotation):
+        self.transform["rotation"] = rotation
+        return self
+
+class Entity(Template):
+    def __init__(self, name, children, rotation=[0, 0, 0], translation=[0, 0, 0]):
+        super(Entity, self).__init__(name, children)
 
 sun = Sun()
 matte = Matte()
@@ -85,6 +100,12 @@ mirror_plane = Plane(Clip(mirror_vertices))
 geometry_receiver = Geometry(material_black, rec_plane)
 geometry_facet = Geometry(material_specular, mirror_plane)
 
+template_reflector = Template("template_reflector", children=[geometry_facet])
+template_absorber = Template("template_absorber", rotation=[0, 1.5, 0], children=[geometry_receiver])
+template_absorber.set_rotation([0.5, 1110, 0])
+entity_base = Entity("base", children=[template_reflector, template_absorber])
+entity_base.set_rotation([0, 14000000, 0])
+
 
 y = GeometryDAO()
 y.sun = sun.to_dict()
@@ -92,4 +113,7 @@ y.material_black = material_black.to_dict()
 y.material_specular = material_specular.to_dict()
 y.geometry_receiver = geometry_receiver.to_dict()
 y.geometry_facet = geometry_facet.to_dict()
+y.template_reflector = template_reflector.to_dict()
+y.template_absorber = template_absorber.to_dict()
+y.entity_base = entity_base.to_dict()
 y.write_yaml("test.yaml")

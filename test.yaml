@@ -14,7 +14,7 @@
     back:
       mirror: *id002
 
-- geometry:
+- geometry: &id007
     material: *id003
     plane:
       clip:
@@ -25,7 +25,7 @@
         - [0.125, 0.09]
         - [0.125, -0.09]
 
-- geometry:
+- geometry: &id005
     material: *id004
     plane:
       clip:
@@ -35,3 +35,28 @@
         - [-0.07, 0.35]
         - [0.07, 0.35]
         - [0.07, -0.35]
+
+- template: &id008
+    name: template_reflector
+    transform:
+      rotation: [0, 0, 0]
+      translation: &id006 [0, 0, 0]
+    children:
+    - *id005
+
+- template: &id009
+    name: template_absorber
+    transform:
+      rotation: [0.5, 1110, 0]
+      translation: *id006
+    children:
+    - *id007
+
+- entity:
+    name: base
+    transform:
+      rotation: [0, 14000000, 0]
+      translation: *id006
+    children:
+    - *id008
+    - *id009
