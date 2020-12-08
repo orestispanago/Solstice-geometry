@@ -73,21 +73,38 @@ class BaseGeometry:
                 }
             }]
         }
-        self.entity_absorber = {
-            "entity": {
-                "name": "absorber",
-                "primary": 0,
-                "transform": {"rotation": [0, 90, 0],
-                              "translation": [-1.5, 0, 0]},
-                "anchors": [
-                    {
-                        "name": "anchor0",
-                        "position": [0, 0, 0]  # in the referential of the receiver
-                    }
-                ],
-                "geometry": self.geometry_receiver["geometry"]
-            }
-        }
+        self.entity_base = {
+            "entity":
+                {"name": "base",
+                "transform":
+                  {"rotation": [0, 45, 0],
+                  "translation": [0, 0, 0]},
+                "children":
+                [{"name": "absorber",
+                  "primary": 0,
+                  "transform":
+                    {"rotation": [0, 90, 0],
+                    "translation": [-1.5, 0, 0]},
+                  "anchors":
+                  [{"name": "anchor0",
+                    "position": [0, 0, 0]},
+                  {"geometry": self.geometry_receiver["geometry"]}
+                ]}]}}
+        # self.entity_absorber = {
+        #     "entity": {
+        #         "name": "absorber",
+        #         "primary": 0,
+        #         "transform": {"rotation": [0, 90, 0],
+        #                       "translation": [-1.5, 0, 0]},
+        #         "anchors": [
+        #             {
+        #                 "name": "anchor0",
+        #                 "position": [0, 0, 0]  # in the referential of the receiver
+        #             }
+        #         ],
+        #         "geometry": self.geometry_receiver["geometry"]
+        #     }
+        # }
         self.template_so_facet = {
             "template": {
                 "name": "so_facet",
@@ -106,10 +123,7 @@ class BaseGeometry:
                                       "translation": [0, 0, 0]},
                         "primary": 1,
                         "geometry": self.geometry_facet["geometry"]
-                    }
-                ]
-            }
-        }
+                    }]}}
         self.template_reflector = {
             "template": {
                 "name": "template_reflector1",
@@ -160,22 +174,22 @@ class BaseGeometry:
             [x_abs, 0, z_abs]
         self.entity_all["entity"]["transform"]["rotation"] = [0, tilt, 0]
         return self
-    
+
     def plane_vertices(self, len_x, len_y):
         x = len_x / 2
         y = len_y / 2
         return [[-x, -y], [-x, y], [x, y], [x, -y]]
-    
+
     def set_absorber_vertices(self, len_x, len_y):
         self.geometry_receiver["geometry"][0]["plane"]["clip"][0]["vertices"] = \
             self.plane_vertices(len_x, len_y)
         return self
-    
+
     def set_facet_vertices(self, len_x, len_y):
         self.geometry_facet["geometry"][0]["plane"]["clip"][0]["vertices"] = \
             self.plane_vertices(len_x, len_y)
         return self
-    
+
     def to_list(self):
         return [getattr(self, key) for key in self.__dict__.keys()]
 
@@ -189,7 +203,7 @@ bg = BaseGeometry()
 
 tg = BaseGeometry().set_tilt(45)
 
-# tg.write_yaml('geometry/data.yaml')
+tg.write_yaml('geometry/data1.yaml')
 obj, vtk = export_obj_vtk(180, 25)
 plot_obj_vtk(obj, vtk)
 
