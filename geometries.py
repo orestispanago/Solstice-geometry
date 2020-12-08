@@ -155,7 +155,7 @@ class BaseGeometry:
         z_abs = float(focal_length * np.cos(np.deg2rad((90 - tilt))))
         x_abs = float(-focal_length * np.sin(np.deg2rad((90 - tilt))))
         self.entity_absorber["entity"]["transform"]["rotation"] = \
-            [0, -(90 - tilt), 0]
+            [0, -(270 - tilt), 0]
         self.entity_absorber["entity"]["transform"]["translation"] = \
             [x_abs, 0, z_abs]
         self.entity_all["entity"]["transform"]["rotation"] = [0, tilt, 0]
@@ -187,11 +187,14 @@ class BaseGeometry:
 
 bg = BaseGeometry()
 
-tg = BaseGeometry().set_tilt(45).set_absorber_vertices(0.5, 0.5)
+tg = BaseGeometry().set_tilt(45)
 
-tg.write_yaml('geometry/data.yaml')
+# tg.write_yaml('geometry/data.yaml')
 obj, vtk = export_obj_vtk(180, 25)
 plot_obj_vtk(obj, vtk)
+
+# transv = Transversal(180, 225, 1, 100000, "data.yaml")
+# tr_df = transv.run_to_df()
 
 # tg.write_yaml('geometry/data.yaml')
 # obj, vtk = export_obj_vtk(180, 25)

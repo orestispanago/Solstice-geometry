@@ -113,7 +113,7 @@ def read(fname):
     df_out = df.loc[df[1] == 'Sun', [3]]  # azimuth
     df_out.columns = ["azimuth"]
     df_out["zenith"] = df.loc[df[1] == 'Sun', [4]]  # zenith
-    df_out["efficiency"] = df.loc[df[0] == 'absorber', [23]].values  # Overall effficiency, add [23,24] for error
+    df_out["efficiency"] = df.loc[df[0] == 'entity_all.absorber', [23]].values  # Overall effficiency, add [23,24] for error
     for key in columns.keys():
         df_out[key] = df[0].iloc[df_out.index + columns.get(key)].astype('float').values
     return df_out

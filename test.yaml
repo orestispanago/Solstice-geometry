@@ -8,16 +8,30 @@
     back:
       matte: *id001
 
-- material:
+- material: &id004
     front:
       mirror: &id002 {reflectivity: 1, slope_error: 0}
     back:
       mirror: *id002
 
 - geometry:
-  - material: *id003
-  - plane:
-      clip:
-      - {operation: AND}
-  material:
     material: *id003
+    plane:
+      clip:
+      - operation: AND
+        vertices:
+        - [-0.125, -0.09]
+        - [-0.125, 0.09]
+        - [0.125, 0.09]
+        - [0.125, -0.09]
+
+- geometry:
+    material: *id004
+    plane:
+      clip:
+      - operation: AND
+        vertices:
+        - [-0.07, -0.35]
+        - [-0.07, 0.35]
+        - [0.07, 0.35]
+        - [0.07, -0.35]
