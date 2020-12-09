@@ -20,7 +20,7 @@ def del_until(fpath, occurrence="# vtk DataFile Version 2.0\n"):
             if line == occurrence:
                 break
         fout.writelines(lines_in[count:])
-
+        
 def keep_until(fpath, occurrence='reflector', lines_before=0):
     """ Keeps lines until occurrence of string """
     with open(fpath, "r") as fin:

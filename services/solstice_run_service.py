@@ -1,11 +1,11 @@
 """ stdin can be used for all functions """
-from subprocess import PIPE, Popen
+from subprocess import PIPE, Popen, run
 from io import StringIO
-from data_service import read
 import numpy as np
 from tqdm import tqdm
 import os
 import pandas as pd
+import utils
 
 receiver = os.path.join(os.getcwd(), "geometry", "receiver.yaml")
 
@@ -29,7 +29,7 @@ def run_chunks(angle_pairs, geometry, rays):
 
 def run_transversal(geometry, min_angle=180, max_angle=225, step=1, rays=10000):
     angles = np.arange(min_angle, max_angle + 1, step) # TODO check if tolist() is necessary
-    angle_pairs = [f"{a:.1f},0" for a in angles]    
+    angle_pairs = [f"{a:.1f},0" for a in angles]
     return run_chunks(angle_pairs, geometry, rays)
 
 def run_longitudinal(geometry, min_angle=0, max_angle=25, step=0.5, rays=10000):
@@ -43,14 +43,14 @@ def abs_positions(coords):
     step = 0.2
     return np.arange(round(coords[0], 1), round(coords[-1], 1) + 0.0001, step)
 
-    
+
 def run_for_all_abs_pos(abs_positions, geometry, rays, aggregate):
-    """ Set absorber position 
+    """ Set absorber position
     Get dataframe from run_transversal() or run_longitudinal()
     Calculate aggregate (mean, sum etc)
     Append result to dataframe list
-    
-    Concatenate dataframe list"""    """ Changes absorber position, 
+
+    Concatenate dataframe list"""    """ Changes absorber position,
     runs direction with output to dataframe (as Direction class attribute),
     calculates aggregate of dataframe columns (sum, mean, etc)
     returns new dataframe with coords and columns aggregate """
@@ -96,7 +96,7 @@ def run_annual_real_dni(azzen_pairs_dni_from_df, geometry, rays, save=True):
     """ For each angle pair:
             set dni in geometry
     Run solstice
-    Read stdout to meaningfull dataframe     
+    Read stdout to meaningfull dataframe
     Append result to dataframe list
     Concatenate dataframe list"""
     return "concatenated dataframe list"
@@ -111,8 +111,46 @@ def export_obj_vtk(azzen_pair_list, geometry, rays=100):
     Save files and return paths """
     return "obj_path", "vtk_path"
 
+def export_obj_vtk(az, zen, receiver = "geometry/receiver.yaml",
+                            geometry = "geometry/data.yaml",
+                            rays=100,
+                            exp_dir="out"):
+    utils.mkdir_if_not_exists(exp_dir)
+    pairs = f"{az:.1f},{zen:.1f}"
+    objpath = os.path.join(exp_dir, pairs + ".obj")
+    vtkpath = os.path.join(exp_dir, pairs + ".vtk")
+    obj_cmd = f'solstice  -n 1 -g format=obj -t1 -D {pairs} -R {receiver} {geometry}'.split()
+    vtk_cmd = f'solstice  -n {rays} -p default -t1 -D {pairs} -R {receiver} {geometry}'.split()
+    with open(objpath, 'w') as o:
+        run(obj_cmd, stdout=o)
+    with open(vtkpath, 'w') as v:
+        run(vtk_cmd, stdout=v)
+    utils.del_first_line(vtkpath)
+    return objpath, vtkpath
+
 def export_heatmap(azzen_pair_list, geometry, heatpath_receiver, rays=1000000):
-    """ Set slices in geometry 
+    """ Set slices in geometry
     Run solstice to export vtk
     save file and return path """
     return "heatmap_vtk_path"
+
+
+def read(fname):
+    columns = {
+           "potential_flux": 2,
+           "absorbed_flux": 3,
+           "cos_factor": 4,
+           "shadow_losses": 5,
+           "missing_losses": 6,
+           # "reflectivity_losses": 7,
+           # "absorptivity_losses": 8
+           }
+    df = pd.read_csv(fname, sep='\s+', names=range(47))
+    df_out = df.loc[df[1] == 'Sun', [3]]  # azimuth (transversal plane)
+    df_out.columns = ["azimuth"]
+    df_out["zenith"] = df.loc[df[1] == 'Sun', [4]]
+    df_out["efficiency"] = df.loc[df[0] == 'absorber', [23]].values
+    for key in columns.keys():
+        df_out[key] = df[0].iloc[df_out.index + \
+                                 columns.get(key)].astype('float').values
+    return df_out
