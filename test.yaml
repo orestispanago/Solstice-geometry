@@ -8,13 +8,13 @@
     back:
       matte: *id001
 
-- material:
+- material: &id004
     front:
       mirror: &id002 {reflectivity: 1, slope_error: 0}
     back:
       mirror: *id002
 
-- geometry:
+- geometry: &id007
   - material: *id003
     plane:
       clip:
@@ -25,8 +25,8 @@
         - [0.125, 0.09]
         - [0.125, -0.09]
 
-- geometry:
-  - material: *id003
+- geometry: &id005
+  - material: *id004
     plane:
       clip:
       - operation: AND
@@ -35,3 +35,35 @@
         - [-0.07, 0.35]
         - [0.07, 0.35]
         - [0.07, -0.35]
+
+- template:
+    name: template_reflector
+    transform:
+      rotation: [0, 0, 0]
+      translation: &id006 [0, 0, 0]
+    primary: 1
+    geometry: *id005
+
+- entity:
+    name: reflector1
+    transform:
+      rotation: [0, 45, 0]
+      translation: *id006
+    primary: 0
+    geometry: *id005
+
+- entity: &id009
+    name: absorber
+    transform:
+      rotation: &id008 [0, 0, 0]
+      translation: *id006
+    primary: 1
+    geometry: *id007
+
+- entity:
+    name: base
+    transform:
+      rotation: *id008
+      translation: *id006
+    children:
+    - *id009

@@ -1,34 +1,28 @@
-import yaml
-from dicts_to_yaml import yaml_items
+from geometries import BaseGeometry
 from subprocess import PIPE, Popen
 from io import StringIO
 import pandas as pd
+import io
 
+def run_solstice_df(geometry):
+    # if geometry.endswith(".yaml"):
+    #     cmd.append(geometry)
+    #     print("appended")
+    with open(geometry, 'r') as f:
+        dni = 2000
+        newline = f"- sun: {{ dni : {dni} }}\n"
+        lines = f.readlines()
+        lines[0] = newline
+        p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        out, err = p.communicate(input="".join(lines).encode())
+        print(err)
+        b = StringIO(out.decode())
+        print(read(b))
 
-class MyDumper(yaml.SafeDumper):
-    # HACK: insert blank lines between top-level objects
-    # inspired by https://stackoverflow.com/a/44284819/3786245
-    def write_line_break(self, data=None):
-        super().write_line_break(data)
-        if len(self.indents) == 1:
-            super().write_line_break()
-
-def format_yaml():
-    return yaml.dump(yaml_items, Dumper=MyDumper,default_flow_style=None,
-              sort_keys=False)
-
-
-
-def run_solstice_df():
-    p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-    out, err = p.communicate(input=a.encode())
-    b = StringIO(out.decode())
-    return read(b)
-
-def run_solstice():
+def run_solstice(geometry):
     with open("out.txt", "w") as f:
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-        out, err = p.communicate(input=a.encode())
+        out, err = p.communicate(input=geometry.encode())
         f.write(out.decode())
 
 def read(fname):
@@ -45,15 +39,19 @@ def read(fname):
     df_out = df.loc[df[1] == 'Sun', [3]]  # azimuth (transversal plane)
     df_out.columns = ["azimuth"]
     df_out["zenith"] = df.loc[df[1] == 'Sun', [4]]
-    df_out["efficiency"] = df.loc[df[0] == 'absorber', [23]].values
+    df_out["efficiency"] = df.loc[df[0] == 'base.absorber', [23]].values
     for key in columns.keys():
         df_out[key] = df[0].iloc[df_out.index + \
                                  columns.get(key)].astype('float').values
     return df_out
 
-a = format_yaml()
+# a = format_yaml()
 cmd = ['solstice', '-D', '45.0,0', '-n', '100', '-v', 
        '-R', 'geometry/receiver.yaml']
 
-df = run_solstice_df(a)
+bg = BaseGeometry().yaml()
+run_solstice_df("geometry/data1.yaml")
 # run_solstice()
+
+
+    

@@ -12,13 +12,17 @@ class GeometryDAO:
             yaml.dump(self.to_list(), outfile, Dumper=MyDumper,
                       default_flow_style=None, sort_keys=False)
 
-class GeometryDescriptor:
+class ListHolder:
     # HACK: Geometry entities need to hold a list of dicts
     # To be used in GeometryDAO instead of __dict__ for consistency
     def __init__(self):
         pass
+
     def to_dict(self):
         return self.__dict__
+
+    def values(self):
+        return getattr(self, next(iter(self.__dict__)))
 
 class MyDumper(yaml.SafeDumper):
     # HACK: insert blank lines between top-level objects
@@ -33,7 +37,8 @@ class DTO:
         pass
     def to_dict(self):
         return {self.__class__.__name__.lower() : self.__dict__}
-
+    def values(self):
+        return self.__dict__
 class Sun(DTO):
     def __init__(self, dni=1000, pillbox=None):
         self.dni = dni
@@ -72,9 +77,9 @@ class Plane(DTO):
     def __init__(self, clip):
         self.clip = [clip.__dict__]
 
-class Geometry(GeometryDescriptor):
+class Geometry(ListHolder):
     def __init__(self, material, plane):
-        self.geometry = [{"material": material_black.__dict__,
+        self.geometry = [{"material": material.__dict__,
                             "plane": plane.__dict__}]
 
 def vertices(dimx, dimy):
@@ -83,10 +88,16 @@ def vertices(dimx, dimy):
     return [[-x, -y], [-x, y], [x, y], [x, -y]]
 
 class Template(DTO):
-    def __init__(self, name, children, rotation=[0, 0, 0], translation=[0, 0, 0]):
+    def __init__(self, name, primary, children=None, geometry=None, rotation=[0, 0, 0], translation=[0, 0, 0]):
         self.name = name
+
         self.transform = {"rotation":rotation, "translation": translation}
-        self.children =[i.__dict__ for i in children]
+        if children:
+            self.children =[i.__dict__ for i in children]
+        else:
+            self.primary = primary
+        if geometry:
+            self.geometry = geometry.values()
     def set_translation(self, translation):
         self.transform["translation"] = translation
         return self
@@ -95,8 +106,8 @@ class Template(DTO):
         return self
 
 class Entity(Template):
-    def __init__(self, name, children, rotation=[0, 0, 0], translation=[0, 0, 0]):
-        super(Entity, self).__init__(name, children)
+    def __init__(self, name, primary, children=None, geometry=None, rotation=[0, 0, 0], translation=[0, 0, 0]):
+        super(Entity, self).__init__(name, primary, children, geometry, rotation)
 
 sun = Sun(pillbox = Pillbox())
 # sun.pillbox = Pillbox().__dict__
@@ -114,13 +125,15 @@ geometry_receiver = Geometry(material_black, rec_plane)
 #                                   "plane": rec_plane.__dict__}]}
 geometry_facet = Geometry(material_specular, mirror_plane)
 
-# template_reflector = Template("template_reflector", children=[geometry_facet])
-# template_absorber = Template("template_absorber", rotation=[0, 1.5, 0],
-#                                                 children=[geometry_receiver])
+template_reflector = Template("template_reflector",1,
+geometry=geometry_facet)
+template_absorber = Template("template_absorber",0, rotation=[0, 1.5, 0],
+                                                children=[geometry_receiver])
 # template_absorber.set_rotation([0.5, 1110, 0])
-# entity_base = Entity("base", children=[template_reflector, template_absorber])
+entity_reflector = Entity("reflector1",0,rotation=[0, 45,0], geometry=geometry_facet)
+entity_absorber = Entity("absorber",1, geometry=geometry_receiver)
+entity_base = Entity("base",1, children=[entity_absorber])
 # entity_base.set_rotation([0, 14000000, 0])
-
 
 y = GeometryDAO()
 y.sun = sun.to_dict()
@@ -128,11 +141,16 @@ y.material_black = material_black.to_dict()
 y.material_specular = material_specular.to_dict()
 y.geometry_receiver = geometry_receiver.to_dict()
 y.geometry_facet = geometry_facet.to_dict()
-# y.template_reflector = template_reflector.to_dict()
+y.template_reflector = template_reflector.to_dict()
 # y.template_absorber = template_absorber.to_dict()
-# y.entity_base = entity_base.to_dict()
+y.entity_reflector = entity_reflector.to_dict()
+y.entity_absorber = entity_absorber.to_dict()
+y.entity_base = entity_base.to_dict()
+# print(entity_base.children[0])
 y.write_yaml("test.yaml")
 
 import services.solstice_run_service as solstice
+import services.plot_service as plotting
 
 obj, vtk = solstice.export_obj_vtk(180,25, geometry="test.yaml")
+plotting.plot_obj_vtk(obj, vtk)

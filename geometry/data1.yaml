@@ -37,7 +37,7 @@
 - entity:
     name: base
     transform:
-      rotation: &id006 [0, 0, 0]
+      rotation: &id006 [0, 45, 0]
       translation: [0, 0, 0]
     children:
     - name: absorber

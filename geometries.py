@@ -178,8 +178,12 @@ class BaseGeometry:
 
     def to_list(self):
         return [getattr(self, key) for key in self.__dict__.keys()]
-
-    def write_yaml(self, fpath):
+    
+    def yaml(self):
+        return yaml.dump(self.to_list(), Dumper=MyDumper,default_flow_style=None,
+              sort_keys=False)
+    
+    def dump(self, fpath):
         with open(fpath, 'w') as outfile:
             yaml.dump(self.to_list(), outfile, Dumper=MyDumper,
                       default_flow_style=None, sort_keys=False)
@@ -189,7 +193,7 @@ bg = BaseGeometry().set_tilt(45)
 
 # tg = BaseGeometry().set_tilt(45)
 
-bg.write_yaml('geometry/data1.yaml')
+bg.dump('geometry/data1.yaml')
 # obj, vtk = export_obj_vtk(180, 25, geometry="geometry/data1.yaml")
 # plot_obj_vtk(obj, vtk)
 

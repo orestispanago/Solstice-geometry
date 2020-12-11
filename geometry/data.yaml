@@ -1,19 +1,17 @@
 - sun: {dni: 1000}
 
+- material: &id003
+    back: &id001
+      mirror: {reflectivity: 1, slope_error: 0}
+    front: *id001
+
 - material:
     back: &id002
       matte: {reflectivity: 0}
-    front:
-      matte: {reflectivity: 0}
+    front: *id002
 
-- material: &id001
-    back:
-      mirror: {reflectivity: 1, slope_error: 0}
-    front:
-      mirror: {reflectivity: 1, slope_error: 0}
-
-- geometry: &id004
-  - material: *id001
+- geometry: &id005
+  - material: *id003
     plane:
       clip:
       - operation: AND
@@ -23,7 +21,7 @@
         - [0.07, 0.07]
         - [0.07, -0.07]
 
-- geometry: &id003
+- geometry: &id004
   - material: *id002
     plane:
       clip:
@@ -34,512 +32,729 @@
         - [0.125, 0.125]
         - [0.125, -0.125]
 
-- geometry: &receiver
-    - material: 
-        virtual: 
-      plane:
-        clip:
-          - operation: AND
-            vertices:
-            - [-0.125, -0.125]
-            - [-0.125, 0.125]
-            - [ 0.125, 0.125]
-            - [ 0.125,-0.125]
-
-- entity: 
-    name: entity_all
+- entity:
+    name: absorber
+    primary: 0
     transform:
-      rotation: &abs_rotation [0, 45, 0]
-      translation: [0, 0, 0]
-    children:
-    - name: absorber
-      primary: 0
-      transform:
-        rotation: [0, 90, 0]
-        translation: [-1.5, 0, 0]
-      anchors:
-      - name: anchor0
-        position: [0, 0, 0]
-      geometry: *id003
+      rotation: [0, 90, 0]
+      translation: [-1.5, 0, 0]
+    anchors:
+    - name: anchor0
+      position: [0, 0, 0]
+    geometry: *id004
 
-- template: &id005
+- template: &id006
     name: so_facet
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0, 0]
     zx_pivot:
       ref_point: [0, 0, 0]
-      target: {anchor: entity_all.absorber.anchor0}
+      target: {anchor: absorber.anchor0}
     children:
     - name: facet
       transform:
         rotation: [90, 0, 0]
+        translation: [0, 0, 0]
       primary: 1
-      geometry: *id004
+      geometry: *id005
 
+- template: &id007
+    name: reflector1
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.71, -0.426]
+    children:
+    - *id006
+
+- template: &id008
+    name: reflector2
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.71, -0.284]
+    children:
+    - *id006
+
+- template: &id009
+    name: reflector3
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.71, -0.142]
+    children:
+    - *id006
+
+- template: &id010
+    name: reflector4
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.71, 0.0]
+    children:
+    - *id006
+
+- template: &id011
+    name: reflector5
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.71, 0.142]
+    children:
+    - *id006
+
+- template: &id012
+    name: reflector6
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.71, 0.284]
+    children:
+    - *id006
+
+- template: &id013
+    name: reflector7
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.71, 0.426]
+    children:
+    - *id006
+
+- template: &id014
+    name: reflector8
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.568, -0.426]
+    children:
+    - *id006
+
+- template: &id015
+    name: reflector9
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.568, -0.284]
+    children:
+    - *id006
+
+- template: &id016
+    name: reflector10
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.568, -0.142]
+    children:
+    - *id006
+
+- template: &id017
+    name: reflector11
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.568, 0.0]
+    children:
+    - *id006
+
+- template: &id018
+    name: reflector12
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.568, 0.142]
+    children:
+    - *id006
+
+- template: &id019
+    name: reflector13
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.568, 0.284]
+    children:
+    - *id006
+
+- template: &id020
+    name: reflector14
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.568, 0.426]
+    children:
+    - *id006
+
+- template: &id021
+    name: reflector15
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.426, -0.426]
+    children:
+    - *id006
+
+- template: &id022
+    name: reflector16
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.426, -0.284]
+    children:
+    - *id006
+
+- template: &id023
+    name: reflector17
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.426, -0.142]
+    children:
+    - *id006
+
+- template: &id024
+    name: reflector18
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.426, 0.0]
+    children:
+    - *id006
+
+- template: &id025
+    name: reflector19
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.426, 0.142]
+    children:
+    - *id006
+
+- template: &id026
+    name: reflector20
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.426, 0.284]
+    children:
+    - *id006
+
+- template: &id027
+    name: reflector21
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.426, 0.426]
+    children:
+    - *id006
+
+- template: &id028
+    name: reflector22
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.284, -0.426]
+    children:
+    - *id006
+
+- template: &id029
+    name: reflector23
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.284, -0.284]
+    children:
+    - *id006
+
+- template: &id030
+    name: reflector24
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.284, -0.142]
+    children:
+    - *id006
+
+- template: &id031
+    name: reflector25
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.284, 0.0]
+    children:
+    - *id006
+
+- template: &id032
+    name: reflector26
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.284, 0.142]
+    children:
+    - *id006
+
+- template: &id033
+    name: reflector27
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.284, 0.284]
+    children:
+    - *id006
+
+- template: &id034
+    name: reflector28
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.284, 0.426]
+    children:
+    - *id006
+
+- template: &id035
+    name: reflector29
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.142, -0.426]
+    children:
+    - *id006
+
+- template: &id036
+    name: reflector30
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.142, -0.284]
+    children:
+    - *id006
+
+- template: &id037
+    name: reflector31
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.142, -0.142]
+    children:
+    - *id006
+
+- template: &id038
+    name: reflector32
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.142, 0.0]
+    children:
+    - *id006
+
+- template: &id039
+    name: reflector33
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.142, 0.142]
+    children:
+    - *id006
+
+- template: &id040
+    name: reflector34
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.142, 0.284]
+    children:
+    - *id006
+
+- template: &id041
+    name: reflector35
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, -0.142, 0.426]
+    children:
+    - *id006
+
+- template: &id042
+    name: reflector36
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.0, -0.426]
+    children:
+    - *id006
+
+- template: &id043
+    name: reflector37
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.0, -0.284]
+    children:
+    - *id006
+
+- template: &id044
+    name: reflector38
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.0, -0.142]
+    children:
+    - *id006
+
+- template: &id045
+    name: reflector39
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.0, 0.0]
+    children:
+    - *id006
+
+- template: &id046
+    name: reflector40
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.0, 0.142]
+    children:
+    - *id006
+
+- template: &id047
+    name: reflector41
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.0, 0.284]
+    children:
+    - *id006
+
+- template: &id048
+    name: reflector42
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.0, 0.426]
+    children:
+    - *id006
+
+- template: &id049
+    name: reflector43
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.142, -0.426]
+    children:
+    - *id006
+
+- template: &id050
+    name: reflector44
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.142, -0.284]
+    children:
+    - *id006
+
+- template: &id051
+    name: reflector45
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.142, -0.142]
+    children:
+    - *id006
+
+- template: &id052
+    name: reflector46
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.142, 0.0]
+    children:
+    - *id006
+
+- template: &id053
+    name: reflector47
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.142, 0.142]
+    children:
+    - *id006
+
+- template: &id054
+    name: reflector48
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.142, 0.284]
+    children:
+    - *id006
+
+- template: &id055
+    name: reflector49
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.142, 0.426]
+    children:
+    - *id006
+
+- template: &id056
+    name: reflector50
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.284, -0.426]
+    children:
+    - *id006
+
+- template: &id057
+    name: reflector51
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.284, -0.284]
+    children:
+    - *id006
+
+- template: &id058
+    name: reflector52
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.284, -0.142]
+    children:
+    - *id006
+
+- template: &id059
+    name: reflector53
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.284, 0.0]
+    children:
+    - *id006
+
+- template: &id060
+    name: reflector54
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.284, 0.142]
+    children:
+    - *id006
+
+- template: &id061
+    name: reflector55
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.284, 0.284]
+    children:
+    - *id006
+
+- template: &id062
+    name: reflector56
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.284, 0.426]
+    children:
+    - *id006
+
+- template: &id063
+    name: reflector57
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.426, -0.426]
+    children:
+    - *id006
+
+- template: &id064
+    name: reflector58
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.426, -0.284]
+    children:
+    - *id006
+
+- template: &id065
+    name: reflector59
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.426, -0.142]
+    children:
+    - *id006
+
+- template: &id066
+    name: reflector60
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.426, 0.0]
+    children:
+    - *id006
+
+- template: &id067
+    name: reflector61
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.426, 0.142]
+    children:
+    - *id006
+
+- template: &id068
+    name: reflector62
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.426, 0.284]
+    children:
+    - *id006
+
+- template: &id069
+    name: reflector63
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.426, 0.426]
+    children:
+    - *id006
+
+- template: &id070
+    name: reflector64
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.568, -0.426]
+    children:
+    - *id006
+
+- template: &id071
+    name: reflector65
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.568, -0.284]
+    children:
+    - *id006
+
+- template: &id072
+    name: reflector66
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.568, -0.142]
+    children:
+    - *id006
+
+- template: &id073
+    name: reflector67
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.568, 0.0]
+    children:
+    - *id006
+
+- template: &id074
+    name: reflector68
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.568, 0.142]
+    children:
+    - *id006
+
+- template: &id075
+    name: reflector69
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.568, 0.284]
+    children:
+    - *id006
+
+- template: &id076
+    name: reflector70
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.568, 0.426]
+    children:
+    - *id006
+
+- template: &id077
+    name: reflector71
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.71, -0.426]
+    children:
+    - *id006
+
+- template: &id078
+    name: reflector72
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.71, -0.284]
+    children:
+    - *id006
+
+- template: &id079
+    name: reflector73
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.71, -0.142]
+    children:
+    - *id006
+
+- template: &id080
+    name: reflector74
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.71, 0.0]
+    children:
+    - *id006
+
+- template: &id081
+    name: reflector75
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.71, 0.142]
+    children:
+    - *id006
+
+- template: &id082
+    name: reflector76
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.71, 0.284]
+    children:
+    - *id006
+
+- template: &id083
+    name: reflector77
+    transform:
+      rotation: [0, 0, 0]
+      translation: [0, 0.71, 0.426]
+    children:
+    - *id006
 
 - entity:
     name: all_reflectors
     transform:
-      rotation: *abs_rotation
+      rotation: [0, 0, 0]
       translation: [0, 0, 0]
     children:
-    - name: reflector1
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.71, -0.426]
-      children:
-      - *id005
-    - name: reflector2
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.71, -0.284]
-      children:
-      - *id005
-    - name: reflector3
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.71, -0.142]
-      children:
-      - *id005
-    - name: reflector4
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.71, 0.0]
-      children:
-      - *id005
-    - name: reflector5
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.71, 0.142]
-      children:
-      - *id005
-    - name: reflector6
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.71, 0.284]
-      children:
-      - *id005
-    - name: reflector7
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.71, 0.426]
-      children:
-      - *id005
-    - name: reflector8
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.568, -0.426]
-      children:
-      - *id005
-    - name: reflector9
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.568, -0.284]
-      children:
-      - *id005
-    - name: reflector10
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.568, -0.142]
-      children:
-      - *id005
-    - name: reflector11
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.568, 0.0]
-      children:
-      - *id005
-    - name: reflector12
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.568, 0.142]
-      children:
-      - *id005
-    - name: reflector13
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.568, 0.284]
-      children:
-      - *id005
-    - name: reflector14
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.568, 0.426]
-      children:
-      - *id005
-    - name: reflector15
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.426, -0.426]
-      children:
-      - *id005
-    - name: reflector16
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.426, -0.284]
-      children:
-      - *id005
-    - name: reflector17
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.426, -0.142]
-      children:
-      - *id005
-    - name: reflector18
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.426, 0.0]
-      children:
-      - *id005
-    - name: reflector19
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.426, 0.142]
-      children:
-      - *id005
-    - name: reflector20
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.426, 0.284]
-      children:
-      - *id005
-    - name: reflector21
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.426, 0.426]
-      children:
-      - *id005
-    - name: reflector22
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.284, -0.426]
-      children:
-      - *id005
-    - name: reflector23
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.284, -0.284]
-      children:
-      - *id005
-    - name: reflector24
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.284, -0.142]
-      children:
-      - *id005
-    - name: reflector25
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.284, 0.0]
-      children:
-      - *id005
-    - name: reflector26
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.284, 0.142]
-      children:
-      - *id005
-    - name: reflector27
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.284, 0.284]
-      children:
-      - *id005
-    - name: reflector28
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.284, 0.426]
-      children:
-      - *id005
-    - name: reflector29
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.142, -0.426]
-      children:
-      - *id005
-    - name: reflector30
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.142, -0.284]
-      children:
-      - *id005
-    - name: reflector31
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.142, -0.142]
-      children:
-      - *id005
-    - name: reflector32
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.142, 0.0]
-      children:
-      - *id005
-    - name: reflector33
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.142, 0.142]
-      children:
-      - *id005
-    - name: reflector34
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.142, 0.284]
-      children:
-      - *id005
-    - name: reflector35
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, -0.142, 0.426]
-      children:
-      - *id005
-    - name: reflector36
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.0, -0.426]
-      children:
-      - *id005
-    - name: reflector37
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.0, -0.284]
-      children:
-      - *id005
-    - name: reflector38
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.0, -0.142]
-      children:
-      - *id005
-    - name: reflector39
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.0, 0.0]
-      children:
-      - *id005
-    - name: reflector40
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.0, 0.142]
-      children:
-      - *id005
-    - name: reflector41
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.0, 0.284]
-      children:
-      - *id005
-    - name: reflector42
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.0, 0.426]
-      children:
-      - *id005
-    - name: reflector43
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.142, -0.426]
-      children:
-      - *id005
-    - name: reflector44
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.142, -0.284]
-      children:
-      - *id005
-    - name: reflector45
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.142, -0.142]
-      children:
-      - *id005
-    - name: reflector46
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.142, 0.0]
-      children:
-      - *id005
-    - name: reflector47
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.142, 0.142]
-      children:
-      - *id005
-    - name: reflector48
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.142, 0.284]
-      children:
-      - *id005
-    - name: reflector49
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.142, 0.426]
-      children:
-      - *id005
-    - name: reflector50
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.284, -0.426]
-      children:
-      - *id005
-    - name: reflector51
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.284, -0.284]
-      children:
-      - *id005
-    - name: reflector52
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.284, -0.142]
-      children:
-      - *id005
-    - name: reflector53
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.284, 0.0]
-      children:
-      - *id005
-    - name: reflector54
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.284, 0.142]
-      children:
-      - *id005
-    - name: reflector55
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.284, 0.284]
-      children:
-      - *id005
-    - name: reflector56
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.284, 0.426]
-      children:
-      - *id005
-    - name: reflector57
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.426, -0.426]
-      children:
-      - *id005
-    - name: reflector58
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.426, -0.284]
-      children:
-      - *id005
-    - name: reflector59
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.426, -0.142]
-      children:
-      - *id005
-    - name: reflector60
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.426, 0.0]
-      children:
-      - *id005
-    - name: reflector61
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.426, 0.142]
-      children:
-      - *id005
-    - name: reflector62
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.426, 0.284]
-      children:
-      - *id005
-    - name: reflector63
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.426, 0.426]
-      children:
-      - *id005
-    - name: reflector64
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.568, -0.426]
-      children:
-      - *id005
-    - name: reflector65
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.568, -0.284]
-      children:
-      - *id005
-    - name: reflector66
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.568, -0.142]
-      children:
-      - *id005
-    - name: reflector67
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.568, 0.0]
-      children:
-      - *id005
-    - name: reflector68
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.568, 0.142]
-      children:
-      - *id005
-    - name: reflector69
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.568, 0.284]
-      children:
-      - *id005
-    - name: reflector70
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.568, 0.426]
-      children:
-      - *id005
-    - name: reflector71
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.71, -0.426]
-      children:
-      - *id005
-    - name: reflector72
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.71, -0.284]
-      children:
-      - *id005
-    - name: reflector73
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.71, -0.142]
-      children:
-      - *id005
-    - name: reflector74
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.71, 0.0]
-      children:
-      - *id005
-    - name: reflector75
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.71, 0.142]
-      children:
-      - *id005
-    - name: reflector76
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.71, 0.284]
-      children:
-      - *id005
-    - name: reflector77
-      transform:
-        rotation: [0, 0, 0]
-        translation: [0, 0.71, 0.426]
-      children:
-      - *id005
+    - *id007
+    - *id008
+    - *id009
+    - *id010
+    - *id011
+    - *id012
+    - *id013
+    - *id014
+    - *id015
+    - *id016
+    - *id017
+    - *id018
+    - *id019
+    - *id020
+    - *id021
+    - *id022
+    - *id023
+    - *id024
+    - *id025
+    - *id026
+    - *id027
+    - *id028
+    - *id029
+    - *id030
+    - *id031
+    - *id032
+    - *id033
+    - *id034
+    - *id035
+    - *id036
+    - *id037
+    - *id038
+    - *id039
+    - *id040
+    - *id041
+    - *id042
+    - *id043
+    - *id044
+    - *id045
+    - *id046
+    - *id047
+    - *id048
+    - *id049
+    - *id050
+    - *id051
+    - *id052
+    - *id053
+    - *id054
+    - *id055
+    - *id056
+    - *id057
+    - *id058
+    - *id059
+    - *id060
+    - *id061
+    - *id062
+    - *id063
+    - *id064
+    - *id065
+    - *id066
+    - *id067
+    - *id068
+    - *id069
+    - *id070
+    - *id071
+    - *id072
+    - *id073
+    - *id074
+    - *id075
+    - *id076
+    - *id077
+    - *id078
+    - *id079
+    - *id080
+    - *id081
+    - *id082
+    - *id083

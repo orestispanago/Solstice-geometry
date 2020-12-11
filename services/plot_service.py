@@ -1,6 +1,8 @@
+import pyvista as pv
+
 def plot_geometry_quantities(df, columns_list):
     """ Plots columns of dataframe in separate figures """
-    
+
 def plot_geometries_comparison(df, column):
     """ Plots same column name from different dataframes in one figure """
 
@@ -19,14 +21,22 @@ def plot_obj(obj_path):
     """ Plot .obj file """
 
 def plot_obj_vtk(obj_path, vtk_path):
-    """ Plot .obj ant .vtk in same window """
-    
+    pv.set_plot_theme("default")
+    obj = pv.read(obj_path)
+    vtk = pv.read(vtk_path)
+    plotter = pv.Plotter()
+    plotter.add_axes()
+    plotter.add_mesh(obj, label='My Mesh', show_scalar_bar=False)
+    plotter.add_mesh(vtk, label='Rays', cmap="jet", show_scalar_bar=False)
+    plotter.show_bounds()
+    plotter.show(cpos="xy", screenshot="obj_vtk.png")
+
 def plot_flux_distribution(heatmap_vtk_path):
     """ Plot flux didtribution from vtk_path """
-    
-    
-    
-    
+
+
+
+
 """ Optional """
 def plot_mirror_coordinates(centered_x, centered_y):
     """ Creates meshgrid from centered_x, centered_y and plots them and 0(0,0)"""
