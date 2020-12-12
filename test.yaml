@@ -31,24 +31,24 @@
       clip:
       - operation: AND
         vertices:
-        - [-0.07, -0.35]
-        - [-0.07, 0.35]
-        - [0.07, 0.35]
-        - [0.07, -0.35]
+        - [-0.07, -0.135]
+        - [-0.07, 0.135]
+        - [0.07, 0.135]
+        - [0.07, -0.135]
 
 - template:
     name: template_reflector
     transform:
       rotation: [0, 0, 0]
-      translation: &id006 [0, 0, 0]
+      translation: [0, 0, 0]
     primary: 1
     geometry: *id005
 
 - entity:
     name: reflector1
     transform:
-      rotation: [0, 45, 0]
-      translation: *id006
+      rotation: [0, 90, 0]
+      translation: &id006 [0, 0, 0]
     primary: 0
     geometry: *id005
 

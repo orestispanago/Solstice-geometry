@@ -1,4 +1,4 @@
-from geometries import BaseGeometry
+from single_class_to_yaml import BaseGeometry
 from subprocess import PIPE, Popen
 from io import StringIO
 import pandas as pd
